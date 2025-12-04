@@ -1,0 +1,111 @@
+/* ==================================== */
+/* Header Component Styles (SCSS) */
+/* ==================================== */
+
+// Colors & Variables
+$primary-color: #ff4500; // MyTicket.am Orange
+$dark-bg: #1a1a1a;
+$light-text: #cccccc;
+$admin-color: #17a2b8;
+
+.main-header {
+    background: linear-gradient(135deg, #111827, #1a1a1a);
+    padding: 10px 0;
+    box-shadow: 0 12px 18px rgb(0 0 0 / 33%);
+    width: 100%;
+    position: sticky;
+    z-index: 999;
+    top: 0;
+    border-bottom-left-radius: 2%;
+    border-bottom-right-radius: 2%;
+
+    .main-nav-content {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+
+        .center-links {
+            list-style: none;
+            display: flex;
+            gap: 30px; 
+            flex-grow: 1; 
+            justify-content: center;
+            padding: 0;
+
+            a {
+                color: $light-text;
+                text-decoration: none;
+                font-size: 1rem;
+                padding: 5px 0;
+                transition: color 0.2s, border-bottom 0.2s;
+                
+                &:hover {
+                    color: white;
+                    border-bottom: 2px solid $primary-color;
+                }
+            }
+        }
+
+        .auth-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            // Auth/User Links
+            .btn-register,
+            .btn-login,
+            .admin-link {
+                text-decoration: none;
+                padding: 5px;
+                border-radius: 4px;
+                font-weight: 500;
+                white-space: nowrap; 
+            }
+
+            .btn-login {
+                background-color: #333333;
+                color: #ffffff;
+                border: 1px solid #333333;
+                &:hover {
+                    background-color: #555555;
+                }
+            }
+
+            .btn-register {
+                background: none;
+                border: 1px solid $primary-color; 
+                color: $primary-color;
+                &:hover {
+                    background-color: $primary-color;
+                    color: $dark-bg;
+                }
+            }
+
+            .admin-link {
+                color: $admin-color;
+                margin-right: 5px;
+            }
+
+            .user-profile-link {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                span{
+                    opacity: 0;
+                    font-size: 1rem;
+                    color: $light-text;
+                    text-decoration: none;
+                }
+                &:hover{
+                    span{
+                        color: #fff;
+                        opacity: 1;
+                    }
+                }    
+            }
+        }
+    }
+}

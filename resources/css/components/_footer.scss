@@ -1,0 +1,100 @@
+
+.footer {
+    background-color: #111827; 
+    color: white;
+    margin-top: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    &__top {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #374151;
+        padding-bottom: 2rem;
+        margin-bottom: 1.5rem;
+
+        @media (min-width: 768px) {
+            flex-direction: row;
+        }
+    }
+
+    &__logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        margin-bottom: 1.5rem;
+
+        @media (min-width: 768px) { 
+            margin-bottom: 0;
+        }
+        
+        &-link {
+            color: #ff4500;
+            transition: color 0.3s ease;
+            
+            &:hover {
+                color: #EF4444;
+            }
+        }
+    }
+
+    &__contact {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+
+        &-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #E5E7EB; 
+            margin: 0;
+        }
+
+        &-item {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        
+        &-link {
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #EF4444;
+            }
+        }
+    }
+
+    &__nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 2rem;
+
+        &-link {
+            color: #9CA3AF;
+            transition: color 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+
+            &:hover {
+                color: #EF4444; 
+            }
+        }
+    }
+
+    &__copyright {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        text-align: center;
+
+        &-text {
+            font-size: 0.875rem; 
+            color: #6B7280; 
+        }
+    }
+}

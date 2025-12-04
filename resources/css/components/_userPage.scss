@@ -1,0 +1,110 @@
+/* --- GENERAL LAYOUT --- */
+.user-profile-container {
+    display: flex;
+    justify-content: center;
+    padding: 70px 0;
+    background: #f5f5f5;
+}
+
+/* --- MAIN CARD --- */
+.profile-card {
+    width: 85%;
+    max-width: 900px;
+    background: linear-gradient(135deg, #1d1d1d, #2a2a2a);
+    padding: 40px 50px;
+    border-radius: 18px;
+    color: #fff;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+}
+
+/* --- TITLES --- */
+.profile-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 30px;
+}
+
+/* Section titles */
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.section-title::after {
+    content: "";
+    width: 65px;
+    height: 3px;
+    background: #ff5100;   /* orange accent */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 2px;
+}
+
+/* --- ACCOUNT DETAILS --- */
+.details-section {
+    margin-bottom: 40px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.detail-label {
+    width: 180px;
+    font-weight: 600;
+    color: #ff5100;   /* orange accent */
+}
+
+/* --- TICKETS SECTION --- */
+.tickets-section {
+    margin-top: 40px;
+}
+
+.no-tickets-message {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 16px 22px;
+    border-radius: 12px;
+    font-size: 17px;
+    color: #ddd;
+    margin-top: 10px;
+}
+
+/* --- LOGOUT --- */
+.logout-area {
+    margin-top: 45px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.logout-button {
+    padding: 14px 28px;
+    font-size: 18px;
+    font-weight: 600;
+    background: #ff5100;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+
+.logout-button:hover {
+    background: #ff6f28;
+    box-shadow: 0 6px 18px rgba(255, 81, 0, 0.35);
+}
+
+/* --- LOADING --- */
+.loading-center {
+    padding: 90px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+}

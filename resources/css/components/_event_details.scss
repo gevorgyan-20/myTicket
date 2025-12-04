@@ -1,0 +1,43 @@
+.event-details{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 160px;
+    .event-body{
+        width: 100%;
+        max-width: 570px;
+        h2{
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            span{
+                width: 100%;
+                max-width: max-content;
+            }
+        }
+        .buttons{
+            margin-top: 35px;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            .btn{
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                color: #fff;
+                &.btn-blue{
+                    background: #111827;
+                }
+                &.btn-gray{
+                    background: #1a1a1a;
+                }
+            }
+        }
+    }
+    .event-pic{
+        padding: 22px;
+        border: 1px solid rgb(97, 97, 97);
+        border-radius: 3%;
+    }
+}

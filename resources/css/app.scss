@@ -1,0 +1,100 @@
+@import 'components/_header';
+@import 'components/_HomePage';
+@import 'components/_footer';
+@import 'components/_about';
+@import 'components/_event_details';
+@import 'components/_modal';
+@import 'components/_userPage';
+@import 'components/_seatsPage';
+
+.myticket-icon{
+  background: url("../images/icons/myticket-icon.svg");
+  display: block;
+  width: 70px;
+  height: 70px;
+}
+
+.profile-icon{
+  background: url("../images/icons/profile-icon.svg");
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.main-font-semibold{
+  font-family: Inter-Semibold, sans-serif;
+  font-weight: 600 !important;
+}
+
+.right-arrow{
+  background: url("../images/icons/right-arrow.svg");
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.left-arrow{
+  background: url("../images/icons/left-arrow.svg");
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.ticket-icon{
+  background: url("../images/icons/ticket-icon.svg");
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.nav-logo {
+  color: $primary-color;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.fs-my{
+  font-size: 48px;
+  font-weight: 100 !important;
+  font-family: fantasy;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+.main-content-area {
+  padding-top: 40px;
+  min-height: calc(100vh - 100px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .main-content-area {
+    padding-top: 20px;
+  }
+}
