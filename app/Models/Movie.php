@@ -9,7 +9,12 @@ class Movie extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'genre', 'duration', 'release_date', 'poster_url'];
+    protected $fillable = ['title', 'description', 'genre', 'duration', 'release_date', 'poster_url', 'venue_id'];
+
+    public function venue()
+    {
+        return $this->belongsTo(Venue::class);
+    }
 
     public function seats()
     {

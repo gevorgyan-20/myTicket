@@ -27,6 +27,7 @@ class StandupController extends Controller
             'location' => 'required|string|max:255',
             'performer' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'venue_id'    => 'nullable|exists:venues,id',
         ]);
 
         $standup = Standup::create($validated);

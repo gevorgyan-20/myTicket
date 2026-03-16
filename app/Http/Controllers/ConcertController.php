@@ -28,6 +28,7 @@ class ConcertController extends Controller
             'duration'     => 'required|integer',
             'release_date' => 'nullable|date',
             'poster_url'   => 'nullable|string|max:255',
+            'venue_id'     => 'nullable|exists:venues,id',
         ]);
 
         $concert = Concert::create($validated);

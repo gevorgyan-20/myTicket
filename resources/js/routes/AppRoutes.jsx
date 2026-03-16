@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import HomePage from '../pages/HomePage';
 import AboutPage from '../pages/AboutPage';
@@ -25,6 +25,24 @@ export default function AppRoutes() {
     const location = useLocation();    
     const state = location.state?.backgroundLocation;
 
+    const checkAuth = () => {
+        const token = localStorage.getItem('authToken');
+        return !!token;
+    };
+
+    const [isSignedIn, setIsSignedIn] = useState(checkAuth());
+
+    useEffect(() => {
+        const handleAuthChange = () => {
+            setIsSignedIn(checkAuth());
+        };
+
+        window.addEventListener('authChange', handleAuthChange);
+        return () => window.removeEventListener('authChange', handleAuthChange);
+    }, []);
+    
+    
+
     return (
         <>
             <Routes location={state || location}>
@@ -44,21 +62,14 @@ export default function AppRoutes() {
                 
                 <Route path="/:eventType/:eventId/seats" element={<SeatsPage />} />
 
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                
+                <Route path="/register" element={isSignedIn ? <Navigate to="/" replace /> : <RegisterPage />} />
+                <Route path="/login" element={isSignedIn ? <Navigate to="/" replace /> : <LoginPage />} />
+
                 <Route path="/admin/*" element={<AdminRoutes />} />
                 
                 <Route path="*" element={<h1>404 | Page Not Found</h1>} />
-                
             </Routes>
 
-            {state && (
-                <Routes>
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                </Routes>
-            )}
         </>
     )
 };

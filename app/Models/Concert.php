@@ -10,8 +10,13 @@ class Concert extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'performer', 'start_time', 'end_time', 'location'
+        'title', 'description', 'performer', 'start_time', 'end_time', 'location', 'venue_id'
     ];
+
+    public function venue()
+    {
+        return $this->belongsTo(Venue::class);
+    }
 
     public function seats()
     {

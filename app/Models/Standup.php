@@ -10,8 +10,13 @@ class Standup extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'comedian', 'start_time', 'end_time', 'location'
+        'title', 'description', 'comedian', 'start_time', 'end_time', 'location', 'venue_id'
     ];
+
+    public function venue()
+    {
+        return $this->belongsTo(Venue::class);
+    }
 
     // Կապ seat-երի հետ
     public function seats()

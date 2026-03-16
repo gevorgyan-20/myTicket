@@ -23,20 +23,18 @@ class MovieController extends Controller
     // for ADMIN role
     public function store(Request $request)
     {
-        // Վավերացում բոլոր դաշտերի
         $validated = $request->validate([
             'title'        => 'required|string|max:255',
             'description'  => 'nullable|string',
             'genre'        => 'nullable|string|max:100',
-            'duration'     => 'required|integer', // րոպեներով
+            'duration'     => 'required|integer',
             'release_date' => 'nullable|date',
             'poster_url'   => 'nullable|string|max:255',
+            'venue_id'     => 'nullable|exists:venues,id',
         ]);
 
-        // Ստեղծում նոր ֆիլմ database-ում
         $movie = Movie::create($validated);
 
-        // Վերադարձնում ամբողջ օբյեկտը JSON-ով, էլի message-ի հետ
         return response()->json([
             'message' => 'Movie created successfully!',
             'movie'   => $movie
@@ -46,7 +44,6 @@ class MovieController extends Controller
     // GET /admin/movies/{movie}/edit
     public function edit(Movie $movie)
     {
-        // Հետադարձնում ենք տվյալները JSON-ով React form-ի համար
         return response()->json($movie);
     }
 

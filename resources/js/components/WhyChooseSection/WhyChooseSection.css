@@ -1,0 +1,18 @@
+.pattern-gear {
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(213, 128, 242, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 70%, rgba(213, 128, 242, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 50% 50%, rgba(213, 128, 242, 0.1) 1px, transparent 1px);
+  background-size: 60px 60px, 80px 80px, 40px 40px;
+  background-position: 0 0, 30px 30px, 15px 15px;
+  animation: patternMove 20s linear infinite;
+}
+
+@keyframes patternMove {
+  0% {
+    background-position: 0 0, 30px 30px, 15px 15px;
+  }
+  100% {
+    background-position: 60px 60px, 90px 90px, 75px 75px;
+  }
+}
