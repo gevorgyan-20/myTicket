@@ -1,4 +1,7 @@
 import './bootstrap';
+import './i18n';
+import './echo';
+import 'flag-icons/css/flag-icons.min.css';
 import '../css/app.css';
 import '../css/app.scss';
 

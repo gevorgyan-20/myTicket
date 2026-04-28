@@ -1,12 +1,14 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import useAuthStatus from '../hooks/useAuthStatus'; 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AdminRoute = () => {
+    const { t } = useTranslation();
     const { isAuthenticated, role, isLoading } = useAuthStatus(); 
 
     if (isLoading) {
-        return <div>Loading...</div>; 
+        return <div className="min-h-screen flex items-center justify-center text-white">{t('common.loadingDots')}</div>; 
     }
 
     if (!isAuthenticated) {

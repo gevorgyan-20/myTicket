@@ -2,7 +2,7 @@ import API from './apiClient';
 
 // ՀԱՆՐԱՅԻՆ ՖՈՒՆԿՑԻԱՆԵՐ (GET)
 
-export const getMovies = () => API.get("/movies"); 
+export const getMovies = (params) => API.get("/movies", { params }); 
 
 export const getMovieById = (id) => API.get(`/movies/${id}`);
 
@@ -13,7 +13,7 @@ export const createMovie = (movieData) => {
 };
 
 export const updateMovie = (id, movieData) => {
-    return API.put(`/admin/movies/${id}`, movieData); 
+    return API.post(`/admin/movies/${id}`, movieData); // Using POST + _method: 'PUT' for file support
 };
 
 export const deleteMovie = (id) => {

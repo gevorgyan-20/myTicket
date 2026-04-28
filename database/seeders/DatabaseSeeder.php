@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MovieSeeder::class);
         $this->call(ConcertSeeder::class);
         $this->call(StandupSeeder::class);
+        $this->call(ShowtimeSeeder::class); // Added
         $this->call(SeatSeeder::class);
     }
 }

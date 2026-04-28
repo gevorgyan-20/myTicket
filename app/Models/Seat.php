@@ -9,11 +9,11 @@ class Seat extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['row', 'number', 'status'];
+    protected $fillable = ['row', 'number', 'status', 'showtime_id'];
 
-    public function seatable()
+    public function showtime()
     {
-        return $this->morphTo();
+        return $this->belongsTo(Showtime::class);
     }
 
     public function tickets()

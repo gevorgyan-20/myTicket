@@ -1,7 +1,7 @@
 import API from './apiClient';
 
 // ՀԱՆՐԱՅԻՆ ՖՈՒՆԿՑԻԱՆԵՐ (GET)
-export const getConcerts = () => API.get("/concerts"); 
+export const getConcerts = (params) => API.get("/concerts", { params }); 
 export const getConcertById = (id) => API.get(`/concerts/${id}`);
 
 // ԱԴՄԻՆԻՍՏՐԱՏԻՎ ՖՈՒՆԿՑԻԱՆԵՐ (CRUD)
@@ -10,7 +10,7 @@ export const createConcert = (concertData) => {
 };
 
 export const updateConcert = (id, concertData) => {
-    return API.put(`/admin/concerts/${id}`, concertData); 
+    return API.post(`/admin/concerts/${id}`, concertData); 
 };
 
 export const deleteConcert = (id) => {

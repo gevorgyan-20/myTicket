@@ -7,9 +7,54 @@ use Illuminate\Http\Request;
 
 class StandupController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $standups = Standup::all();
+        $query = Standup::query();
+
+        if ($request->filled('venue_id')) {
+            $query->whereHas('showtimes', function($q) use ($request) {
+                $q->where('venue_id', $request->venue_id);
+            });
+        } elseif ($request->filled('where') && $request->where !== 'all') {
+            $where = $request->where;
+            $query->whereHas('showtimes.venue', function($q) use ($where) {
+                $q->where('name', 'like', "%$where%")
+                  ->orWhere('city', 'like', "%$where%");
+            });
+        }
+
+        if ($request->filled('when') && $request->when !== 'all') {
+            $when = $request->when;
+            $query->whereHas('showtimes', function($q) use ($when) {
+                if ($when === 'today') {
+                    $q->whereDate('start_time', now()->toDateString());
+                } elseif ($when === 'tomorrow') {
+                    $q->whereDate('start_time', now()->addDay()->toDateString());
+                } elseif ($when === 'weekend') {
+                    $q->whereBetween('start_time', [now()->startOfWeek()->addDays(5), now()->startOfWeek()->addDays(6)]);
+                } elseif ($when === 'month') {
+                    $q->whereMonth('start_time', now()->month)
+                      ->whereYear('start_time', now()->year);
+                }
+            });
+        }
+
+        // 3. Filter by Price (Only check section prices)
+        if ($request->filled('price_min') || $request->filled('price_max')) {
+            $query->whereHas('showtimes.sectionPrices', function($sq) use ($request) {
+                if ($request->filled('price_min')) {
+                    $sq->where('price', '>=', $request->price_min);
+                }
+                if ($request->filled('price_max')) {
+                    $sq->where('price', '<=', $request->price_max);
+                }
+            });
+        }
+
+        $standups = $query->with(['showtimes' => function($q) {
+            $q->orderBy('start_time');
+        }, 'showtimes.venue', 'showtimes.sectionPrices'])->get();
+
         return response()->json($standups);
     }
 
@@ -22,13 +67,25 @@ class StandupController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'date' => 'required|date',
-            'location' => 'required|string|max:255',
-            'performer' => 'required|string|max:255',
+            'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
+            'comedian'    => 'required|string|max:255',
+            'start_time'  => 'required|date',
+            'location'    => 'required|string|max:255',
+            'poster'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'venue_id'    => 'nullable|exists:venues,id',
+            'price'       => 'nullable|numeric|min:0',
+            'allow_standing' => 'nullable|boolean',
         ]);
+
+        if ($request->has('allow_standing')) {
+            $validated['allow_standing'] = filter_var($request->allow_standing, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if ($request->hasFile('poster')) {
+            $path = $request->file('poster')->store('posters', 'public');
+            $validated['poster_url'] = '/storage/' . $path;
+        }
 
         $standup = Standup::create($validated);
 
@@ -38,6 +95,48 @@ class StandupController extends Controller
         ], 201);
     }
 
+    public function update(Request $request, Standup $standup)
+    {
+        $validated = $request->validate([
+            'title'       => 'sometimes|required|string|max:255',
+            'description' => 'nullable|string',
+            'comedian'    => 'sometimes|required|string|max:255',
+            'start_time'  => 'sometimes|required|date',
+            'location'    => 'sometimes|required|string|max:255',
+            'poster'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'venue_id'    => 'nullable|exists:venues,id',
+            'price'       => 'nullable|numeric|min:0',
+            'allow_standing' => 'nullable|boolean',
+        ]);
+
+        if ($request->has('allow_standing')) {
+            $validated['allow_standing'] = filter_var($request->allow_standing, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if ($request->hasFile('poster')) {
+            if ($standup->poster_url) {
+                $oldPath = str_replace('/storage/', '', $standup->poster_url);
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($oldPath);
+            }
+            $path = $request->file('poster')->store('posters', 'public');
+            $standup->poster_url = '/storage/' . $path;
+        } elseif ($request->input('remove_poster') === 'true') {
+            if ($standup->poster_url) {
+                $oldPath = str_replace('/storage/', '', $standup->poster_url);
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($oldPath);
+                $standup->poster_url = null;
+            }
+        }
+        
+        $standup->fill($validated);
+        $standup->save();
+
+        return response()->json([
+            'message' => 'Standup updated successfully!',
+            'standup' => $standup
+        ]);
+    }
+
     public function edit(Standup $standup)
     {
         return response()->json($standup);
@@ -45,6 +144,10 @@ class StandupController extends Controller
 
     public function destroy(Standup $standup)
     {
+        if ($standup->poster_url) {
+            $path = str_replace('/storage/', '', $standup->poster_url);
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
+        }
         $standup->delete();
 
         return response()->json([
@@ -52,3 +155,4 @@ class StandupController extends Controller
         ]);
     }
 }
+

@@ -13,15 +13,21 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|unique:users',
-            'password' => 'required|string|min:6',
+            'name'                  => 'required|string|max:255',
+            'last_name'             => 'nullable|string|max:255',
+            'phone'                 => 'nullable|string|max:20',
+            'country_code'          => 'nullable|string|max:10',
+            'email'                 => 'required|string|email|unique:users',
+            'password'              => 'required|string|min:6|confirmed',
         ]);
 
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password), // ✅ hash-ov
+            'name'       => $request->name,
+            'last_name'  => $request->last_name,
+            'phone_code' => $request->country_code,
+            'phone'      => $request->phone,
+            'email'      => $request->email,
+            'password'   => Hash::make($request->password),
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -29,6 +35,32 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type'   => 'Bearer',
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'name'       => 'required|string|max:255',
+            'last_name'  => 'nullable|string|max:255',
+            'phone_code' => 'nullable|string|max:10',
+            'phone'      => 'nullable|string|max:20',
+            'email'      => 'required|string|email|unique:users,email,' . $user->id,
+        ]);
+
+        $user->update([
+            'name'       => $request->name,
+            'last_name'  => $request->last_name,
+            'phone_code' => $request->phone_code,
+            'phone'      => $request->phone,
+            'email'      => $request->email,
+        ]);
+
+        return response()->json([
+            'message' => 'Profile updated successfully',
+            'user'    => $user
         ]);
     }
 

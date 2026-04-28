@@ -10,23 +10,58 @@ class Standup extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'comedian', 'start_time', 'end_time', 'location', 'venue_id'
+        'title',
+        'description',
+        'comedian',
+        'genre',
+        'start_time',
+        'end_time',
+        'location',
+        'poster_url',
+        'venue_id',
+        'price',
+        'allow_standing'
     ];
+
+    protected $casts = [
+        'allow_standing' => 'boolean',
+    ];
+
+    protected $appends = ['min_price', 'max_price', 'first_show_date', 'last_show_date'];
 
     public function venue()
     {
         return $this->belongsTo(Venue::class);
     }
 
-    // Կապ seat-երի հետ
-    public function seats()
+    public function showtimes()
     {
-        return $this->morphMany(Seat::class, 'seatable');
+        return $this->morphMany(Showtime::class, 'showtimeable');
     }
 
-    // Կապ ticket-երի հետ
-    public function tickets()
+    public function getMinPriceAttribute()
     {
-        return $this->morphMany(Ticket::class, 'ticketable');
+        $prices = $this->showtimes->flatMap(fn($st) => $st->sectionPrices->pluck('price'));
+        if ($prices->isEmpty())
+            return (float) ($this->price ?: 0);
+        return (float) $prices->min();
+    }
+
+    public function getMaxPriceAttribute()
+    {
+        $prices = $this->showtimes->flatMap(fn($st) => $st->sectionPrices->pluck('price'));
+        if ($prices->isEmpty())
+            return (float) ($this->price ?: 0);
+        return (float) $prices->max();
+    }
+
+    public function getFirstShowDateAttribute()
+    {
+        return $this->showtimes->min('start_time');
+    }
+
+    public function getLastShowDateAttribute()
+    {
+        return $this->showtimes->max('start_time');
     }
 }

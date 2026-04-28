@@ -24,12 +24,12 @@ export default function FilterDropdown({
   const hasCustomContent = Boolean(children);
 
   return (
-    <div className="relative flex flex-col gap-1 min-w-[140px]" ref={ref}>
+    <div className="relative flex flex-col gap-1 w-full" ref={ref}>
       <label className="text-xs text-[#999999]">{label}</label>
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex items-center gap-2 w-full min-h-[48px] px-3 py-2 rounded-xl bg-[#1A1A1A] border border-[#303030] hover:border-[#404040] transition-colors text-left"
+        className="flex items-center gap-2 w-full h-10 md:h-12 px-3 rounded-xl bg-[#1A1A1A] border border-[#303030] hover:border-[#404040] transition-colors text-left"
       >
         <span className="text-[#999999] flex-shrink-0">{icon}</span>
         <span className="flex-1 text-sm text-white truncate">

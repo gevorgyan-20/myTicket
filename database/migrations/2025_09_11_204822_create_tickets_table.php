@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('buyer_name')->nullable();
             $table->string('buyer_email')->nullable();
             $table->decimal('price', 8, 2);
-            $table->enum('status', ['reserved', 'purchased'])->default('reserved');
+            $table->enum('status', ['reserved', 'purchased', 'buy'])->default('reserved');
             
             $table->timestamps();
         });

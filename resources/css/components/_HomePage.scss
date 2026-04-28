@@ -1,4 +1,4 @@
-$primary-color: #ff4500;
+$primary-color: #C14FE6;
 $primary-gradient: linear-gradient(135deg, #ff4500, #ff6b35);
 $purple-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 $pink-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -48,7 +48,7 @@ $section-bg: rgba(255, 255, 255, 0.92);
     .loading-spinner {
         width: 60px;
         height: 60px;
-        border: 4px solid rgba(255, 69, 0, 0.2);
+        border: 4px solid rgba(193, 79, 230, 0.2);
         border-top-color: $primary-color;
         border-radius: 50%;
         animation: spin 1s linear infinite;

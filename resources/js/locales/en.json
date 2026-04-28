@@ -1,0 +1,643 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "movies": "Movies",
+    "concerts": "Concerts",
+    "standups": "Standups",
+    "register": "Register",
+    "signIn": "Sign In",
+    "profile": "Profile",
+    "adminDashboard": "Admin Dashboard"
+  },
+  "hero": {
+    "titlePart1": "What ",
+    "titlePart2": "Concert",
+    "titlePart3": " would you like to go to?",
+    "subtitle": "More than 100 concerts in different countries are now available to you.",
+    "loading": "Loading amazing events..."
+  },
+  "search": {
+    "tabs": {
+      "concerts": "Concerts",
+      "standups": "Standups",
+      "movies": "Movies"
+    },
+    "fields": {
+      "what": { "title": "what", "subtitle": "Event Type" },
+      "where": { "title": "where", "subtitle": "Location" },
+      "when": { "title": "when", "subtitle": "Date" }
+    },
+    "features": {
+      "refundable": {
+        "title": "Refundable Tickets",
+        "description": "You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free."
+      },
+      "deals": {
+        "title": "Smart Deals",
+        "description": "You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free."
+      },
+      "anytime": {
+        "title": "Book Anytime!",
+        "description": "You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free."
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading",
+    "loadingDots": "Loading...",
+    "saving": "Saving...",
+    "back": "Back",
+    "cancel": "Cancel",
+    "remove": "Remove",
+    "ok": "OK",
+    "continue": "Continue",
+    "goBack": "Go Back",
+    "availableSessions": "Available Sessions",
+    "noSessions": "No sessions available at the moment:",
+    "pickSeats": "Pick Seats",
+    "selectSeats": "Select Seats"
+  },
+  "concerts": {
+    "title": "Concert",
+    "categories": {
+      "all": "All",
+      "pop": "Pop",
+      "rock": "Rock",
+      "jazz": "Jazz & Blues",
+      "hiphop": "Hip-Hop & Rap",
+      "alternative": "Alternative",
+      "classical": "Classical",
+      "opera": "Opera",
+      "country": "Country"
+    },
+    "timeToEnd": "Time to end",
+    "page": {
+      "loading": "Loading concerts...",
+      "comingSoon": "Coming Soon",
+      "tba": "TBA",
+      "allDates": "All dates",
+      "today": "Today",
+      "weekend": "This weekend",
+      "month": "This month",
+      "under1000": "Under 1000֏",
+      "fromTo3000": "1000֏ - 3000֏",
+      "fromTo5000": "3000֏ - 5000֏",
+      "over5000": "Over 5000֏",
+      "anyPrice": "Any price",
+      "allLocations": "All locations",
+      "searchLocation": "search location",
+      "useMyLocation": "use my location",
+      "allVenues": "All venues",
+      "noVenuesFound": "No venues found",
+      "search": "Search",
+      "viewAll": "View all",
+      "viewMore": "View More Concerts",
+      "exploreTitle": "Start exploring event today!",
+      "exploreSubtitle": "Find concerts, shows, and more near you.",
+      "start": "Start",
+      "when": "When",
+      "where": "Where",
+      "price": "Price"
+    }
+  },
+  "movies": {
+    "title": "Movies",
+    "categories": {
+      "all": "All",
+      "scifi": "Sci-Fi",
+      "action": "Action",
+      "adventure": "Adventure",
+      "comedy": "Comedy",
+      "drama": "Drama",
+      "horror": "Horror",
+      "thriller": "Thriller",
+      "fantasy": "Fantasy",
+      "family": "Family",
+      "animation": "Animation"
+    },
+    "page": {
+      "loading": "Loading movies...",
+      "viewMore": "View More Movies",
+      "cinema": "Cinema"
+    }
+  },
+  "standups": {
+    "title": "Standups",
+    "categories": {
+      "all": "All",
+      "solo": "Solo",
+      "panel": "Panel",
+      "openmic": "Open Mic",
+      "workshop": "Workshop"
+    },
+    "page": {
+      "loading": "Loading standups...",
+      "viewMore": "View More Standups"
+    }
+  },
+  "singers": {
+    "title": "Top singers",
+    "subtitle": "Find the singers you're looking for quickly.",
+    "seeMore": " You can see more."
+  },
+  "reviews": {
+    "title": "Loved by Thousands",
+    "subtitle": "Smooth, easy ticket buying — hear it from our happy users."
+  },
+  "faq": {
+    "title1": "Frequently Asked ",
+    "title2": "Questions",
+    "subtitle": "Explore the most common questions and detailed answers about our events or concerts, and security to help guide your journey in the MyTicket.",
+    "questions": {
+      "q1": {
+        "q": "When Exclusive Private Market for Event ticket sale Opportunities ?",
+        "a": "Our exclusive private market opens periodically for premium event ticket sales. Members get early access to high-demand events and special pricing opportunities."
+      },
+      "q2": {
+        "q": "If Easy to find subscription And Tickets purchase?",
+        "a": "Yes! Our platform is designed for simplicity. You can easily browse events, subscribe to notifications, and purchase tickets in just a few clicks."
+      },
+      "q3": {
+        "q": "Why Raise Your more Event & ticket?",
+        "a": "We continuously expand our event catalog to offer you more variety and opportunities. Our growing network ensures you have access to the best events in your area."
+      },
+      "q4": {
+        "q": "I haven't received my e-ticket. What should I do?",
+        "a": "If you haven't received your e-ticket within 24 hours of purchase, please check your spam folder first. Then contact our support team with your order number for immediate assistance."
+      },
+      "q5": {
+        "q": "How More Supply and more Event for future ?",
+        "a": "We're constantly working with event organizers to bring you more options. Our platform grows daily with new events, concerts, and experiences for you to enjoy."
+      },
+      "q6": {
+        "q": "How Comprehensive Compliance for Event Ticket Purchase?",
+        "a": "We ensure full compliance with all local regulations and industry standards. Every transaction is secure, verified, and protected by our comprehensive compliance framework."
+      }
+    }
+  },
+  "footer": {
+    "home": "Home",
+    "contact": "Contact us",
+    "about": "About us",
+    "privacy": "Privacy Policy",
+    "copyright": "Copyright © MyTicket"
+  },
+  "whyChoose": {
+    "title": "Why Choose ",
+    "subtitle": "Experience excellence with a team that truly cares",
+    "f1": {
+      "title": "Your Ticket is on the Way!",
+      "description": "We're sending your ticket straight to your email. Just confirm your name and email below, and you're all set for an unforgettable experience! 🚀"
+    },
+    "f2": {
+      "title": "Online Ticket Purchasing",
+      "description": "Allows users to browse events, select seats, and buy tickets instantly via secure payment methods 🎟️"
+    },
+    "f3": {
+      "title": "Customer Support",
+      "description": "24/7 live chat, email, or phone support for booking issues. 🌟"
+    },
+    "f4": {
+      "title": "Event Discovery",
+      "description": "Personalized suggestions based on user preferences, location, and past bookings. Filters for categories, venues, and price ranges. 💰"
+    }
+  },
+  "experience": {
+    "title": "More Than Just a Ticket",
+    "subtitle": "The MyTicket Experience",
+    "items": {
+      "i1": "1. Every ticket is the start of a memory, not just entry to an event.",
+      "i2": "2. Whether it's a concert, movie, or theater show - your full experience matters.",
+      "i3": "1. MyTicket ensures a smooth and enjoyable journey from booking to the final moment.",
+      "i4": "2. We connect you to world-class events with just a few clicks.",
+      "i5": "3. Our platform is designed for ease, speed, and excitement.",
+      "i6": "4. With MyTicket, every step feels like part of the show."
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About us",
+      "description": "MyTicket is your premier destination for discovering and booking tickets to the most exciting events. From concerts and movies to festivals and shows, we bring you closer to unforgettable experiences. Our platform is designed with you in mind, offering seamless ticket purchasing, secure transactions, and exceptional customer support. Join thousands of event enthusiasts who trust MyTicket for their entertainment needs."
+    }
+  },
+  "story": {
+    "title": "What is the story of MyTicket?",
+    "items": {
+      "i1": {
+        "title": "Research & Discovery",
+        "description": "Understanding the market needs and user expectations"
+      },
+      "i2": {
+        "title": "Experience Design",
+        "description": "Creating intuitive and beautiful user interfaces"
+      },
+      "i3": {
+        "title": "Platform Development",
+        "description": "Building a robust and scalable ticketing platform"
+      },
+      "i4": {
+        "title": "Launch & Growth",
+        "description": "Launching the platform and continuously improving"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Please enter your details to login",
+      "email": "Email",
+      "password": "Password",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter your password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot Password?",
+      "submit": "Log in",
+      "submitting": "Log In...",
+      "noAccount": "New to MyTicket? ",
+      "createAccount": "Create account",
+      "failed": "Sign in failed"
+    },
+    "register": {
+      "title": "Registration",
+      "subtitle": "Please enter your details to create an account",
+      "name": "Name",
+      "lastName": "Last name",
+      "namePlaceholder": "First name",
+      "lastNamePlaceholder": "Last name",
+      "phone": "Phone number",
+      "phonePlaceholder": "Phone number",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "agreeTerms": "I agree to the terms",
+      "submit": "Sign up",
+      "submitting": "Sign up...",
+      "haveAccount": "Have a MyTicket account? ",
+      "signIn": "Sign in",
+      "failed": "Registration failed",
+      "mismatch": "Passwords do not match"
+    },
+    "georgia": "Georgia",
+    "ukraine": "Ukraine"
+  },
+  "contact": {
+    "title": "Join to enjoy your moments!",
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Location"
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "movies": "Movies",
+      "concerts": "Concerts",
+      "standups": "Standups",
+      "venues": "Venues",
+      "create": "Create",
+      "logout": "Logout",
+      "role": "Role",
+      "administrator": "Administrator",
+      "panel": "Panel"
+    },
+    "dashboard": {
+      "admin": "Admin",
+      "overview": "Overview",
+      "subtitle": "Manage your event catalog and venues with precision",
+      "stats": {
+        "totalMovies": "Total Movies",
+        "liveConcerts": "Live Concerts",
+        "standupShows": "Standup Shows",
+        "totalUsers": "Total Users"
+      },
+      "table": {
+        "addNew": "Add New",
+        "item": "Item",
+        "actions": "Actions",
+        "noItems": "No items found",
+        "confirmDelete": "Are you sure you want to delete this {{type}}?",
+        "deleteFailed": "Failed to delete {{type}}",
+        "location": "Location",
+        "capacity": "Capacity",
+        "seats": "seats"
+      }
+    },
+    "common": {
+      "back": "Back",
+      "save": "Save Changes",
+      "saving": "Saving...",
+      "delete": "Delete",
+      "deleting": "Deleting...",
+      "edit": "Edit",
+      "create": "Create",
+      "successUpdate": "{{type}} updated successfully!",
+      "successCreate": "{{type}} created successfully!",
+      "failLoad": "Failed to load data:",
+      "confirmDelete": "Are you sure you want to delete this {{type}}?",
+      "dragDrop": "Click or drag and drop to change poster",
+      "newImageReplace": "New image will replace the current one",
+      "imageHint": "PNG, JPG, GIF up to 2MB",
+      "updateDetails": "Update details and posters",
+      "createDetails": "Fill in the details to add a new event"
+    },
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "genre": "Genre",
+      "duration": "Duration (min)",
+      "releaseDate": "Release Date",
+      "basePrice": "Base Price (֏)",
+      "venue": "Venue",
+      "allowStanding": "Allow Standing Zones",
+      "selectVenue": "-- Select New Venue --",
+      "selectGenre": "-- Select Genre --",
+      "performer": "Performer",
+      "date": "Date",
+      "comedian": "Comedian",
+      "genrePlaceholder": "e.g. Action",
+      "durationPlaceholder": "min",
+      "pricePlaceholder": "price",
+      "noVenues": "No venues yet.",
+      "createVenue": "Create a venue",
+      "locationPlaceholder": "e.g. London"
+    },
+    "movies": {
+      "edit": "Edit Movie",
+      "create": "Add Movie",
+      "delete": "Delete Movie",
+      "type": "movie"
+    },
+    "concerts": {
+      "edit": "Edit Concert",
+      "create": "Add Concert",
+      "delete": "Delete Concert",
+      "type": "concert"
+    },
+    "standups": {
+      "edit": "Edit Standup",
+      "create": "Add Standup",
+      "delete": "Delete Standup",
+      "type": "standup"
+    },
+    "venues": {
+      "title": "Venue Management",
+      "details": "Manage all venues in the system",
+      "create": "Create New Venue",
+      "edit": "Edit Venue",
+      "list": "Venue List",
+      "noVenues": "No venues yet. Create your first one!",
+      "type": "Venue",
+      "editLayout": "Edit Layout",
+      "detailsBtn": "Details",
+      "namePlaceholder": "e.g. Karen Demirchyan Sports Complex",
+      "addressPlaceholder": "e.g. 35 Tsitsernakaberd Highway, Yerevan",
+      "editor": {
+        "back": "Back to Venues",
+        "saveDraft": "Save draft",
+        "deleteSeat": "Delete seat",
+        "deselect": "Deselect",
+        "zoom": "Zoom",
+        "seats": "Seats",
+        "zones": "Zones",
+        "draft": "Draft",
+        "save": "Save",
+        "saving": "Saving...",
+        "published": "Published",
+        "publish": "Publish",
+        "publishing": "Publishing...",
+        "addSection": "Add Section",
+        "sectionName": "Section Name",
+        "properties": "Properties",
+        "row": "Row",
+        "number": "Number",
+        "noLayout": "No Layout",
+        "targetSection": "Target Section",
+        "unsavedChanges": "Unsaved changes",
+        "publishSuccess": "Layout published successfully!",
+        "tools": {
+          "select": "Select",
+          "addSeat": "Add Seat",
+          "addZone": "Add Zone",
+          "delete": "Delete",
+          "grid": "Grid",
+          "zoomIn": "Zoom In",
+          "zoomOut": "Zoom Out",
+          "zoomReset": "Reset Zoom",
+          "hint": "Click to place · Drag to move · Scroll to zoom"
+        },
+        "sections": {
+          "title": "Sections",
+          "add": "Add",
+          "noSections": "No sections yet. Add one to colour-group seats.",
+          "sectionName": "Section name",
+          "cannotDeleteLast": "Cannot delete the last section",
+          "deleteSection": "Delete section"
+        },
+        "properties": {
+          "title": "Properties",
+          "label": "Label",
+          "type": "Type",
+          "section": "Section",
+          "capacity": "Capacity (Tickets)",
+          "rotation": "Rotation",
+          "coordinates": "Coordinates"
+        }
+      }
+    },
+    "showtimes": {
+      "title": "Showtime Management",
+      "manage": "Manage Sessions (Showtimes)",
+      "noSessions": "No sessions scheduled yet.",
+      "prices": "Prices",
+      "sectionPrices": "Section Prices",
+      "addNew": "Add New Session",
+      "chooseVenue": "-- Choose Venue --",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "addSession": "Add Session",
+      "requiredEverySection": "(required for each section)",
+      "noSectionsAlert": "This venue has no published sections yet. Publish its layout first.",
+      "confirmDelete": "Delete this showtime?",
+      "validatePrices": "Please set a price for every section (can be 0).",
+      "loading": "Loading showtimes..."
+    }
+  },
+  "user": {
+    "tabs": {
+      "tickets": "Tickets",
+      "personal": "Personal info",
+      "payment": "Payment",
+      "notification": "Notification",
+      "setting": "Settings",
+      "paymentPlaceholder": "Payment methods and billing will be available here.",
+      "notificationPlaceholder": "Notification preferences will be available here.",
+      "settingPlaceholder": "Settings will be available here."
+    },
+    "logout": "Logout",
+    "upgrade": {
+      "title": "Upgrade your plan",
+      "subtitle": "Unlock additional features enhanced capabilities",
+      "button": "See plans"
+    },
+    "tickets": {
+      "loading": "Loading tickets...",
+      "empty": {
+        "title": "ooops!!!",
+        "subtitle": "You haven't booked any tickets yet. Explore exciting events and secure your spot now!",
+        "button": "Browse Events"
+      },
+      "all": "All",
+      "pending": "Reserved",
+      "canceled": "Canceled",
+      "completed": "Purchased",
+      "sortBy": "Sort by",
+      "totalPaid": "Total paid",
+      "count": "{{count}} tickets",
+      "details": "Ticket Details >",
+      "noTicketsFilter": "No {{status}} tickets found."
+    },
+    "personal": {
+      "greeting": "Hey {{name}}!",
+      "edit": "Edit",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "discard": "Discard",
+      "save": "Save changes",
+      "saving": "Saving...",
+      "anonymous": "there"
+    },
+    "modal": {
+      "orderDetails": "Order Details",
+      "selectedSeats": "Selected Seats",
+      "row": "Row {{row}}, Seat {{seat}}",
+      "standing": "Standing Zone ({{label}})",
+      "totalAmount": "Total Amount",
+      "noDate": "No date set",
+      "order": "Order",
+      "event": "Event",
+      "venue": "Venue"
+    }
+  },
+  "checkout": {
+    "success": {
+      "title": "Thank You!",
+      "subtitle": "Your payment was successful",
+      "sentTo": "Your tickets have been sent to:",
+      "backHome": "‹ Back to home",
+      "goProfile": "› Go to profile"
+    },
+    "steps": {
+      "tickets": "Tickets",
+      "payment": "Payment",
+      "review": "Review"
+    },
+    "timer": {
+      "left": "left to complete receive ticket",
+      "subtitle": "Your price is only guaranteed for this time!",
+      "cancel": "Cancel and release seats"
+    },
+    "tickets": {
+      "subtitle": "Make sure the number of tickets is correct before proceeding.",
+      "quantity": "Ticket quantity",
+      "confirm": "Confirm"
+    },
+    "payment": {
+      "title": "Select payment method",
+      "card": "Card",
+      "stripe": "Stripe",
+      "confirm": "Confirm"
+    },
+    "summary": {
+      "title": "Order summary",
+      "ticketPrice": "Ticket price",
+      "serviceFee": "Service fee",
+      "tax": "Tax",
+      "totalPrice": "Total price"
+    },
+    "details": {
+      "title": "Payment details",
+      "processing": "Processing...",
+      "payNow": "Pay now",
+      "failed": "Payment succeeded but ticket creation failed. Please contact support."
+    },
+    "review": {
+      "back": "Back"
+    },
+    "trust": {
+      "fanProtect": "FanProtect : every order is 100% guaranteed",
+      "refundTitle": "Easy Refund",
+      "refundText": "Change of plans? Get your money back up to 24 hours before the event."
+    }
+  },
+  "seats": {
+    "loading": "Loading...",
+    "error": "Failed to load seats.",
+    "alreadyReserved": "This seat is already reserved.",
+    "selectAtLeastOne": "Please select at least one seat.",
+    "summary": {
+      "selectedTickets": "Selected Tickets: {{count}}",
+      "seats": "Seats:",
+      "totalPrice": "Total Price: {{price}}֏",
+      "confirmPurchase": "Confirm Purchase ({{count}})"
+    },
+    "hero": {
+      "sec": "SEC",
+      "row": "ROW",
+      "label": "LABEL",
+      "seat": "SEAT"
+    },
+    "filters": {
+      "tickets": "tickets",
+      "perks": "Perks",
+      "frontRows": "Front rows",
+      "price": "Price",
+      "upTo": "Up to",
+      "maxPrice": "Max Price",
+      "anyPrice": "Any price",
+      "clear": "Clear"
+    },
+    "legend": {
+      "unavailable": "UnAvailable",
+      "select": "Select"
+    },
+    "sidebar": {
+      "sectionVip": "Section VIP",
+      "price": "price",
+      "per": "per",
+      "doubleComfort": "Double Comfort",
+      "total": "Total",
+      "ticketsTogether": "{{count}} tickets together",
+      "continue": "Continue",
+      "stageSelected": "Stage selected",
+      "great": "Great",
+      "clearView": "Clear View"
+    },
+    "message": {
+      "close": "Close"
+    },
+    "modal": {
+      "ticketInfo": "Ticket Information",
+      "vip": "vip",
+      "row": "ROW",
+      "seat": "Seat {{number}}",
+      "total": "Total",
+      "changeSeat": "Change Seat",
+      "continue": "Continue"
+    }
+  },
+  "feedback": {
+    "title": "Enjoyed the event?",
+    "subtitle": "Please rate your experience to help us improve.",
+    "placeholder": "Tell us what you think (optional)...",
+    "skip": "Not Now",
+    "submit": "Submit Feedback",
+    "submitting": "Submitting...",
+    "successTitle": "Thank You!",
+    "successMessage": "Your feedback has been successfully submitted."
+  }
+}

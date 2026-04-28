@@ -1,222 +1,98 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from "../UI/Card";
 import "./TopSingersSection.css";
 
-const topSingersRow1 = [
-  { name: "Beyonce", date: "15 April,London", image: "/image-292-35.png" },
-  { name: "Adele", date: "5 May,New York", image: "/image-292-15.png" },
-  { name: "Drake", date: "20 June,Toronto", image: "/image-292-16.png" },
-  {
-    name: "Taylor Swift",
-    date: "10 July,Nashville",
-    image: "/image-292-17.png",
-  },
-  {
-    name: "Ed Sheeran",
-    date: "25 August,Los Angeles",
-    image: "/image-292-18.png",
-  },
-  {
-    name: "Billie Eilish",
-    date: "30 September,Chicago",
-    image: "/image-292-19.png",
-  },
-  {
-    name: "Billie Eilish",
-    date: "30 September,Chicago",
-    image: "/image-292-20.png",
-  },
-  { name: "Beyonce", date: "15 April,London", image: "/image-292-35.png" },
-  { name: "Adele", date: "5 May,New York", image: "/image-292-15.png" },
-  { name: "Drake", date: "20 June,Toronto", image: "/image-292-16.png" },
-  {
-    name: "Taylor Swift",
-    date: "10 July,Nashville",
-    image: "/image-292-17.png",
-  },
-  {
-    name: "Ed Sheeran",
-    date: "25 August,Los Angeles",
-    image: "/image-292-18.png",
-  },
-  {
-    name: "Billie Eilish",
-    date: "30 September,Chicago",
-    image: "/image-292-19.png",
-  },
-  {
-    name: "Billie Eilish",
-    date: "30 September,Chicago",
-    image: "/image-292-20.png",
-  },
-  { name: "Beyonce", date: "15 April,London", image: "/image-292-35.png" },
-  { name: "Adele", date: "5 May,New York", image: "/image-292-15.png" },
-  { name: "Drake", date: "20 June,Toronto", image: "/image-292-16.png" },
-  {
-    name: "Taylor Swift",
-    date: "10 July,Nashville",
-    image: "/image-292-17.png",
-  },
-  {
-    name: "Ed Sheeran",
-    date: "25 August,Los Angeles",
-    image: "/image-292-18.png",
-  },
-  {
-    name: "Billie Eilish",
-    date: "30 September,Chicago",
-    image: "/image-292-19.png",
-  },
-  {
-    name: "Billie Eilish",
-    date: "30 September,Chicago",
-    image: "/image-292-20.png",
-  },
-];
-
-const topSingersRow2 = [
-  { name: "Beyonce", date: "15 April,London", image: "/image-292-35.png" },
-  { name: "Adele", date: "5 May,New York", image: "/image-292-36.png" },
-  { name: "Drake", date: "30 June,Toronto", image: "/image-292-37.png" },
-  {
-    name: "Taylor Swift",
-    date: "13 July,Nashville",
-    image: "/image-292-38.png",
-  },
-  { name: "Ed Sheeran", date: "25 August,Dublin", image: "/image-292-39.png" },
-  {
-    name: "Billie Eilish",
-    date: "10 September,Los Angeles",
-    image: "/image-292-40.png",
-  },
-  {
-    name: "The Weeknd",
-    date: "20 October,Las Vegas",
-    image: "/image-292-41.png",
-  },
-  { name: "Beyonce", date: "15 April,London", image: "/image-292-35.png" },
-  { name: "Adele", date: "5 May,New York", image: "/image-292-36.png" },
-  { name: "Drake", date: "30 June,Toronto", image: "/image-292-37.png" },
-  {
-    name: "Taylor Swift",
-    date: "13 July,Nashville",
-    image: "/image-292-38.png",
-  },
-  { name: "Ed Sheeran", date: "25 August,Dublin", image: "/image-292-39.png" },
-  {
-    name: "Billie Eilish",
-    date: "10 September,Los Angeles",
-    image: "/image-292-40.png",
-  },
-  {
-    name: "The Weeknd",
-    date: "20 October,Las Vegas",
-    image: "/image-292-41.png",
-  },
-  { name: "Beyonce", date: "15 April,London", image: "/image-292-35.png" },
-  { name: "Adele", date: "5 May,New York", image: "/image-292-36.png" },
-  { name: "Drake", date: "30 June,Toronto", image: "/image-292-37.png" },
-  {
-    name: "Taylor Swift",
-    date: "13 July,Nashville",
-    image: "/image-292-38.png",
-  },
-  { name: "Ed Sheeran", date: "25 August,Dublin", image: "/image-292-39.png" },
-  {
-    name: "Billie Eilish",
-    date: "10 September,Los Angeles",
-    image: "/image-292-40.png",
-  },
-  {
-    name: "The Weeknd",
-    date: "20 October,Las Vegas",
-    image: "/image-292-41.png",
-  },
-];
-
 function TopSingersSection() {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
 
-  return (
-    <section className="flex flex-col w-full items-center gap-8 pb-[98px] relative">
-      <header className="flex flex-col max-w-[461px] items-center gap-2">
-        <h2 className="[font-family:'Inter', Helvetica] font-medium leading-[34px] text-[#ffffff] text-[28px] text-center">
-          Top singers
-        </h2>
+  // Helper to duplicate items for infinite effect if needed, 
+  // but here we already have enough items in the static arrays.
 
-        <p className="text-center leading-[19px]">
-          <span className="text-[#999999]">
-            Find the singers you're looking for quickly.
-          </span>
-          <span className="text-[#E4AFF8]"> You can see more.</span>
+  const topSingersRow1 = [
+    { name: "Beyonce", date: "15 April, London", image: "https://images.unsplash.com/photo-1574169208507-84376144848b?w=400&h=400&fit=crop" },
+    { name: "Adele", date: "5 May, New York", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400&h=400&fit=crop" },
+    { name: "Drake", date: "20 June, Toronto", image: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=400&h=400&fit=crop" },
+    { name: "Taylor Swift", date: "10 July, Nashville", image: "https://images.unsplash.com/photo-1520872024861-399fa0c86321?w=400&h=400&fit=crop" },
+    { name: "Ed Sheeran", date: "25 August, LA", image: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=400&h=400&fit=crop" },
+    { name: "Billie Eilish", date: "30 Sept, Chicago", image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=400&fit=crop" },
+  ];
+  
+  const topSingersRow2 = [
+    { name: "The Weeknd", date: "20 Oct, Las Vegas", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop" },
+    { name: "Dua Lipa", date: "12 Nov, Paris", image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=400&fit=crop" },
+    { name: "Harry Styles", date: "1 Dec, London", image: "https://images.unsplash.com/photo-1514525253361-bee8a187499b?w=400&h=400&fit=crop" },
+    { name: "SZA", date: "15 Jan, Miami", image: "https://images.unsplash.com/photo-1459749411177-042180ce673c?w=400&h=400&fit=crop" },
+    { name: "Bad Bunny", date: "2 Feb, Mexico City", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=400&fit=crop" },
+    { name: "Doja Cat", date: "18 March, Tokyo", image: "https://images.unsplash.com/photo-1496293455970-f8581aae0e3c?w=400&h=400&fit=crop" },
+  ];
+
+  // Double the rows for smooth looping
+  const row1 = [...topSingersRow1, ...topSingersRow1, ...topSingersRow1];
+  const row2 = [...topSingersRow2, ...topSingersRow2, ...topSingersRow2];
+
+  return (
+    <section className="flex flex-col w-full items-center gap-12 py-24 relative overflow-hidden">
+      <header className="flex flex-col items-center gap-4 px-4">
+        <h2 className="font-poppins text-4xl md:text-6xl font-black text-white text-center uppercase tracking-tighter">
+            {t('singers.title')}
+        </h2>
+        <p className="text-center text-gray-500 max-w-lg text-sm md:text-base">
+            {t('singers.subtitle')} <span className="text-purple-400 font-bold cursor-pointer hover:text-purple-300 transition-colors">{t('singers.seeMore')}</span>
         </p>
       </header>
     
-      <div className="relative w-full h-[181px]">
-        <div
-            className="w-screen flex flex-col gap-4 absolute top-0 -left-[108px] overflow-hidden"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
-            <div
-            className={`flex gap-4 animate-marquee-right ${isHovered ? 'paused' : ''}`}
-            style={{ width: "max-content" }}
-            >
-            {topSingersRow1.map((singer, index) => (
-                <Card
-                key={`row1-${index}`}
-                className="flex-shrink-0 w-[280px] bg-[#191919] rounded-xl border border-solid border-[#303030] hover:border-[#404040] transition-colors cursor-pointer"
-                >
-                <CardContent className="flex items-center gap-3 p-1 pr-4">
-                    <img
-                    className="w-[75px] h-[75px] rounded-[10px] object-cover"
-                    alt={singer.name}
-                    src={singer.image}
-                    />
-                    <div className="flex flex-col gap-1">
-                    <div className="[font-family:'Inter',Helvetica] font-medium text-[#ffffff] text-lg tracking-[0] leading-[normal]">
-                        {singer.name}
-                    </div>
-                    <div className="[font-family:'Inter',Helvetica] font-normal text-[#b3b3b3] text-sm tracking-[0] leading-[normal]">
-                        {singer.date}
-                    </div>
-                    </div>
-                </CardContent>
-                </Card>
-            ))}
+      <div 
+        className="relative w-full flex flex-col gap-6"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Row 1 */}
+        <div className="flex w-full overflow-hidden">
+            <div className={`flex gap-6 animate-marquee-right ${isHovered ? 'paused' : ''} py-2`}>
+                {row1.map((singer, index) => (
+                    <Card key={`row1-${index}`} className="flex-shrink-0 w-72 bg-white/5 border-white/10 backdrop-blur-xl hover:bg-white/10 hover:border-purple-500/30 transition-all group cursor-pointer rounded-2xl">
+                        <CardContent className="flex items-center gap-4 p-2 pr-6">
+                            <div className="relative w-20 h-20 rounded-xl overflow-hidden">
+                                <img className="w-full h-full object-cover transition-transform group-hover:scale-110" alt={singer.name} src={singer.image} />
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-white font-bold text-lg group-hover:text-purple-400 transition-colors">{singer.name}</span>
+                                <span className="text-gray-500 text-xs font-medium uppercase tracking-wider">{singer.date}</span>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
             </div>
+        </div>
 
-            <div
-            className={`flex gap-4 animate-marquee-left ${isHovered ? 'paused' : ''}`}
-            style={{ width: "max-content" }}
-            >
-            {topSingersRow2.map((singer, index) => (
-                <Card
-                key={`row2-${index}`}
-                className="flex-shrink-0 w-[280px] bg-[#191919] rounded-xl border border-solid border-[#303030] hover:border-[#404040] transition-colors cursor-pointer"
-                >
-                <CardContent className="flex items-center gap-3 p-1 pr-4">
-                    <img
-                    className="w-[75px] h-[75px] rounded-[10px] object-cover"
-                    alt={singer.name}
-                    src={singer.image}
-                    />
-                    <div className="flex flex-col gap-1">
-                    <div className="[font-family:'Inter',Helvetica] font-medium text-[#ffffff] text-lg tracking-[0] leading-[normal]">
-                        {singer.name}
-                    </div>
-                    <div className="[font-family:'Inter',Helvetica] font-normal text-[#b3b3b3] text-sm tracking-[0] leading-[normal]">
-                        {singer.date}
-                    </div>
-                    </div>
-                </CardContent>
-                </Card>
-            ))}
+        {/* Row 2 */}
+        <div className="flex w-full overflow-hidden">
+            <div className={`flex gap-6 animate-marquee-left ${isHovered ? 'paused' : ''} py-2`}>
+                {row2.map((singer, index) => (
+                    <Card key={`row2-${index}`} className="flex-shrink-0 w-72 bg-white/5 border-white/10 backdrop-blur-xl hover:bg-white/10 hover:border-purple-500/30 transition-all group cursor-pointer rounded-2xl">
+                        <CardContent className="flex items-center gap-4 p-2 pr-6">
+                            <div className="relative w-20 h-20 rounded-xl overflow-hidden">
+                                <img className="w-full h-full object-cover transition-transform group-hover:scale-110" alt={singer.name} src={singer.image} />
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-white font-bold text-lg group-hover:text-purple-400 transition-colors">{singer.name}</span>
+                                <span className="text-gray-500 text-xs font-medium uppercase tracking-wider">{singer.date}</span>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
             </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </section>
   );
-};
+}
 
-export default TopSingersSection;
+export default TopSingersSection;

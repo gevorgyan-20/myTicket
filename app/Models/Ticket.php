@@ -13,16 +13,22 @@ class Ticket extends Model
     use HasFactory; 
 
     protected $fillable = [
-        // ԿՐԻՏԻԿԱԿԱՆ ԴԱՇՏԵՐ՝ 500 ՍԽԱԼԸ ԼՈՒԾԵԼՈՒ ՀԱՄԱՐ
-        'ticketable_id',   // Իրադարձության ID (ֆիլմ, համերգ և այլն)
-        'ticketable_type', // Իրադարձության տեսակը (Movie, Concert և այլն)
+        'showtime_id',
         'seat_id',
-        'user_id', 
+        'user_id',
         'buyer_name',
         'buyer_email',
         'price',
         'status',
+        'stripe_payment_intent_id',
+        'reserved_until',
     ];
+
+    protected $casts = [
+        'reserved_until' => 'datetime',
+        'price'          => 'decimal:2',
+    ];
+
 
     // Կապը user-ի հետ
     public function user(): BelongsTo
@@ -30,15 +36,35 @@ class Ticket extends Model
         return $this->belongsTo(User::class);
     }
 
-    // կապ ticketable-ի հետ (poly-morphic)
-    public function ticketable(): MorphTo
+    // կապ showtime-ի հետ
+    public function showtime(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(Showtime::class);
     }
 
     // կապ seat-ի հետ
     public function seat(): BelongsTo
     {
         return $this->belongsTo(Seat::class);
+    }
+
+    // կապ venue seat-ի հետ (spatial layout)
+    public function venueSeat(): BelongsTo
+    {
+        return $this->belongsTo(VenueSeat::class, 'seat_id');
+    }
+
+    protected $appends = ['event_title', 'total_paid'];
+
+    public function getEventTitleAttribute()
+    {
+        return $this->showtime?->showtimeable?->title ?? 
+               $this->showtime?->showtimeable?->comedian ?? 
+               'Event';
+    }
+
+    public function getTotalPaidAttribute()
+    {
+        return $this->price;
     }
 }

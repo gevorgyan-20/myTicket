@@ -1,12 +1,15 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ExperienceSection() {
+  const { t } = useTranslation();
+
   return (
-    <section className="relative w-full py-20 px-[108px]">
+    <section className="relative w-full py-12 md:py-20 px-4 md:px-[108px]">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="lg:row-span-1">
-            <div className="w-[434px] h-[434px] rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+          <div className="order-1 lg:order-none flex justify-center lg:justify-start">
+            <div className="w-full max-w-[434px] aspect-square rounded-2xl overflow-hidden shadow-2xl">
               <img 
                 src="/images/icons/about-1.png" 
                 alt="Concert Hall - La La Land"
@@ -15,40 +18,40 @@ export default function ExperienceSection() {
             </div>
           </div>
 
-          <div className="lg:row-span-1 flex flex-col justify-center">
-            <h2 className="[font-family:'Inter',Helvetica] text-3xl font-bold text-white mb-6">
-              More Than Just a Ticket<br />
-              The <span className="text-[#E4AFF8]">MyTicket</span> Experience
+          <div className="order-2 lg:order-none flex flex-col justify-center">
+            <h2 className="font-poppins text-2xl md:text-3xl font-bold text-white mb-6">
+              {t('experience.title')}<br className="hidden md:block" />
+              {" "}{t('experience.subtitle')}
             </h2>
             <ul className="space-y-4">
-              <li className="[font-family:'Inter',Helvetica] text-base leading-7 text-white">
-                1. Every ticket is the start of a memory, not just entry to an event.
+              <li className="font-mulish text-sm md:text-base leading-relaxed text-gray-300">
+                {t('experience.items.i1')}
               </li>
-              <li className="[font-family:'Inter',Helvetica] text-base leading-7 text-white">
-                2. Whether it's a concert, sports match, or theater show - your full experience matters.
+              <li className="font-mulish text-sm md:text-base leading-relaxed text-gray-300">
+                {t('experience.items.i2')}
               </li>
             </ul>
           </div>
 
-          <div className="lg:row-span-1 flex flex-col justify-center">
+          <div className="order-4 lg:order-none flex flex-col justify-center">
             <ul className="space-y-4">
-              <li className="[font-family:'Inter',Helvetica] text-base leading-7 text-white">
-                1. MyTicket ensures a smooth and enjoyable journey from booking to the final moment.
+              <li className="font-mulish text-sm md:text-base leading-relaxed text-gray-300">
+                {t('experience.items.i3')}
               </li>
-              <li className="[font-family:'Inter',Helvetica] text-base leading-7 text-white">
-                2. We connect you to world-class events with just a few clicks.
+              <li className="font-mulish text-sm md:text-base leading-relaxed text-gray-300">
+                {t('experience.items.i4')}
               </li>
-              <li className="[font-family:'Inter',Helvetica] text-base leading-7 text-white">
-                3. Our platform is designed for ease, speed, and excitement.
+              <li className="font-mulish text-sm md:text-base leading-relaxed text-gray-300">
+                {t('experience.items.i5')}
               </li>
-              <li className="[font-family:'Inter',Helvetica] text-base leading-7 text-white">
-                4. With MyTicket, every step feels like part of the show.
+              <li className="font-mulish text-sm md:text-base leading-relaxed text-gray-300">
+                {t('experience.items.i6')}
               </li>
             </ul>
           </div>
 
-          <div className="flex justify-end items-center lg:row-span-1">
-            <div className="w-[434px] h-[434px] rounded-2xl overflow-hidden">
+          <div className="order-3 lg:order-none flex justify-center lg:justify-end">
+            <div className="w-full max-w-[434px] aspect-square rounded-2xl overflow-hidden shadow-2xl">
               <img 
                 src="/images/icons/about-2.png" 
                 alt="Crowd at Event"

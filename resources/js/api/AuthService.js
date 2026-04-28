@@ -22,3 +22,8 @@ export const logout = async () => {
 export const getCurrentUser = async () => {
   return API.get("/user");
 };
+
+// 🧩 Թարմացնել պրոֆիլը (Update Profile)
+export const updateProfile = async (userData) => {
+  return API.put("/user", userData);
+};

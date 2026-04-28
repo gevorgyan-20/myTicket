@@ -1,9 +1,12 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Mic } from "lucide-react";
 
 export default function AboutHeroSection() {
+  const { t } = useTranslation();
+
   return (
-    <section className="relative w-full py-32 px-[108px] overflow-hidden">
+    <section className="relative w-full py-20 md:py-32 px-4 md:px-[108px] overflow-hidden">
       <div className="absolute inset-0 z-0">
         <div 
           className="w-full h-full bg-cover bg-center"
@@ -15,19 +18,15 @@ export default function AboutHeroSection() {
       </div>
 
       <div className="relative z-10 flex flex-col items-center gap-6 max-w-4xl mx-auto text-center">
-        <div className="flex items-center gap-3 mb-4">
-          <Mic className="w-12 h-12 text-[#E4AFF8]" />
-          <h1 className="[font-family:'Inter',Helvetica] text-5xl font-bold text-white">
-            About us
+        <div className="flex flex-col md:flex-row items-center gap-3 mb-4">
+          <Mic className="w-10 h-10 md:w-12 md:h-12 text-[#E4AFF8]" />
+          <h1 className="font-poppins text-3xl md:text-5xl font-bold text-white">
+            {t('about.hero.title')}
           </h1>
         </div>
         
-        <p className="[font-family:'Inter',Helvetica] text-lg leading-7 text-[#999999] max-w-3xl">
-          MyTicket is your premier destination for discovering and booking tickets to the most exciting events. 
-          From concerts and sports events to festivals and shows, we bring you closer to unforgettable experiences. 
-          Our platform is designed with you in mind, offering seamless ticket purchasing, secure transactions, 
-          and exceptional customer support. Join thousands of event enthusiasts who trust MyTicket for their 
-          entertainment needs.
+        <p className="font-mulish text-base md:text-lg leading-relaxed text-[#999999] max-w-3xl">
+          {t('about.hero.description')}
         </p>
       </div>
     </section>

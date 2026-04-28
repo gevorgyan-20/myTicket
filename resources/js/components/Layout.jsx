@@ -7,11 +7,12 @@ function Layout({ children }) {
     const location = useLocation(); 
     const isProfilePage = location.pathname === '/user';
     const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+    const isAdminPage = location.pathname.startsWith('/admin');
 
     return (
         <div className="app-layout">
             
-            {!isProfilePage && !isAuthPage && <Header />}
+            {!isProfilePage && !isAuthPage && !isAdminPage && <Header />}
 
             <main className="main-content-area">
                 <div>
@@ -19,7 +20,7 @@ function Layout({ children }) {
                 </div>
             </main>
 
-            {!isAuthPage && <Footer />}
+            {!isAuthPage && !isAdminPage && !isProfilePage && <Footer />}
         </div>
     );
 }

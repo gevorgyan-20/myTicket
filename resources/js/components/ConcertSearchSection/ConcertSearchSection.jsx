@@ -2,126 +2,153 @@
 
 import React from 'react';
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { Button } from "../UI/Button";
 import { Card, CardContent } from "../UI/Card";
+import CustomDatePicker from "../UI/CustomDatePicker";
+import { Grid, Music, Mic, Film, MapPin, Calendar, Search, Bookmark, Ticket, PartyPopper } from 'lucide-react';
 
-const tabItems = [
-  {
-    value: "concerts",
-    label: "Concerts",
-    icon: "/images/icons/note.svg",
-  },
-  {
-    value: "shows",
-    label: "Shows",
-    icon: "/images/icons/masks.svg",
-  },
-  {
-    value: "sports",
-    label: "Sports",
-    icon: "/images/icons/dumbbell.svg",
-  },
-  {
-    value: "festivals",
-    label: "Festivals",
-    icon: "/images/icons/ferris-wheel.svg",
-  },
-];
+function ConcertSearchSection({ onSearch, activeCategory, onCategoryChange }) {
+  const { t } = useTranslation();
+  const [query, setQuery] = useState("");
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
 
-const searchFields = [
-  {
-    icon: "/images/icons/Widget.svg",
-    title: "what",
-    subtitle: "Event Type",
-  },
-  {
-    icon: "/images/icons/map-point.svg",
-    title: "where",
-    subtitle: "Location",
-  },
-  {
-    icon: "/images/icons/Calendar.svg",
-    title: "when",
-    subtitle: "Date",
-  },
-];
+  const tabItems = [
+    {
+      value: "all",
+      label: t('concerts.categories.all'),
+      icon: <Grid size={20} />,
+    },
+    {
+      value: "concerts",
+      label: t('search.tabs.concerts'),
+      icon: <Music size={20} />,
+    },
+    {
+      value: "standups",
+      label: t('search.tabs.standups'),
+      icon: <Mic size={20} />,
+    },
+    {
+      value: "movies",
+      label: t('search.tabs.movies'),
+      icon: <Film size={20} />,
+    },
+  ];
 
-const features = [
-  {
-    icon: "/images/icons/BookMark.svg",
-    label: "Book Anytime",
-  },
-  { 
-    icon: "/images/icons/Ticket.svg",
-    label: "Refundable Tickets",
-  },
-  {
-    icon: "/images/icons/Confetti.svg",
-    label: "Smart Deals",
-  },
-];
+  const features = [
+    {
+      icon: <Bookmark size={18} className="text-purple-400" />,
+      label: t('search.features.anytime.title'),
+    },
+    { 
+      icon: <Ticket size={18} className="text-purple-400" />,
+      label: t('search.features.refundable.title'),
+    },
+    {
+      icon: <PartyPopper size={18} className="text-purple-400" />,
+      label: t('search.features.deals.title'),
+    },
+  ];
 
-function ConcertSearchSection() {
-  const [activeTab, setActiveTab] = useState("concerts");
+  const handleSearch = () => {
+    onSearch?.({ query, location, date });
+  };
 
   return (
-    <section className="flex flex-col items-center gap-4 w-full max-w-[1016px] mx-auto relative pt-[95px] pb-[100px]">
-      <Card className="w-full bg-[#1b1b1bcc] rounded-2xl border border-[#303030] backdrop-blur-[32px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(32px)_brightness(100%)] shadow-bg-blur">
-        <CardContent className="flex flex-col items-center gap-4 px-10 py-6">
-          <div className="flex items-start justify-between w-full pb-4 border-b border-[#232323]">
+    <section className="flex flex-col items-center gap-6 w-full max-w-5xl mx-auto relative py-12 md:py-24">
+      <Card className="w-full bg-white/5 rounded-3xl border border-white/10 backdrop-blur-2xl shadow-2xl">
+        <CardContent className="flex flex-col items-center gap-6 p-4 md:p-8">
+          {/* Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 w-full pb-6 border-b border-white/5">
             {tabItems.map((tab) => (
               <button
                 key={tab.value}
-                onClick={() => setActiveTab(tab.value)}
-                className={`inline-flex gap-2 px-6 py-3 rounded-3xl items-center transition-colors ${
-                  activeTab === tab.value
-                    ? "bg-[#232323]"
-                    : "hover:bg-[#1a1a1a]"
+                onClick={() => onCategoryChange?.(tab.value)}
+                className={`flex gap-2 px-5 py-2.5 rounded-full items-center transition-all duration-300 ${
+                  activeCategory === tab.value
+                    ? "bg-purple-600/20 text-purple-400 border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.15)]"
+                    : "text-gray-400 hover:bg-white/5 hover:text-white border border-transparent"
                 }`}
               >
-                <img className="w-5 h-5" alt={tab.label} src={tab.icon} />
-                <span className="font-font-body-b8-18-rregular font-[number:var(--font-body-b8-18-rregular-font-weight)] text-white text-[length:var(--font-body-b8-18-rregular-font-size)] tracking-[var(--font-body-b8-18-rregular-letter-spacing)] leading-[var(--font-body-b8-18-rregular-line-height)] [font-style:var(--font-body-b8-18-rregular-font-style)]">
-                  {tab.label}
-                </span>
+                <span className="opacity-80">{tab.icon}</span>
+                <span className="font-semibold text-sm">{tab.label}</span>
               </button>
             ))}
           </div>
 
-          <div className="flex items-center justify-between w-full px-4 py-3 rounded-2xl">
-            {searchFields.map((field, index) => (
-              <div key={field.title} className="flex items-center gap-3">
-                {index > 0 && <div className="h-12 w-px bg-[#232323] mr-3" />}
-                <button className="inline-flex items-center gap-3 min-w-[200px] text-left hover:opacity-80 transition-opacity">
-                  <img className="w-8 h-8" alt={field.title} src={field.icon} />
-                  <div className="inline-flex flex-col items-start justify-center">
-                    <div className="font-font-body-b11-20-rregular font-[number:var(--font-body-b11-20-rregular-font-weight)] text-white text-[length:var(--font-body-b11-20-rregular-font-size)] tracking-[var(--font-body-b11-20-rregular-letter-spacing)] leading-[var(--font-body-b11-20-rregular-line-height)] whitespace-nowrap [font-style:var(--font-body-b11-20-rregular-font-style)]">
-                      {field.title}
-                    </div>
-                    <div className="font-font-body-b3-14-rregular font-[number:var(--font-body-b3-14-rregular-font-weight)] text-[#999999] text-[length:var(--font-body-b3-14-rregular-font-size)] tracking-[var(--font-body-b3-14-rregular-letter-spacing)] leading-[var(--font-body-b3-14-rregular-line-height)] [font-style:var(--font-body-b3-14-rregular-font-style)]">
-                      {field.subtitle}
-                    </div>
-                  </div>
-                </button>
+          {/* Search Inputs */}
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto] items-center w-full gap-4 md:gap-2">
+            <div className="flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 transition-colors group">
+              <div className="p-2.5 bg-purple-500/10 rounded-xl group-hover:bg-purple-500/20 transition-colors">
+                <Grid className="w-6 h-6 text-purple-400" />
               </div>
-            ))}
+              <div className="flex flex-col flex-1">
+                <span className="font-poppins text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-1">{t('search.fields.what.title')}</span>
+                <input 
+                  type="text"
+                  placeholder={t('search.fields.what.subtitle')}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="bg-transparent border-none outline-none text-white text-base w-full placeholder:text-gray-600"
+                />
+              </div>
+            </div>
 
-            <Button className="size-12 gap-2 p-3 bg-[#C14FE6] rounded-lg border border-[#c14fe6] hover:bg-[#a642cc] transition-colors">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 2.75C6.66751 2.75 2.75 6.66751 2.75 11.5C2.75 16.3325 6.66751 20.25 11.5 20.25C16.3325 20.25 20.25 16.3325 20.25 11.5C20.25 6.66751 16.3325 2.75 11.5 2.75ZM1.25 11.5C1.25 5.83908 5.83908 1.25 11.5 1.25C17.1609 1.25 21.75 5.83908 21.75 11.5C21.75 14.0605 20.8111 16.4017 19.2589 18.1982L22.5303 21.4697C22.8232 21.7626 22.8232 22.2374 22.5303 22.5303C22.2374 22.8232 21.7626 22.8232 21.4697 22.5303L18.1982 19.2589C16.4017 20.8111 14.0605 21.75 11.5 21.75C5.83908 21.75 1.25 17.1609 1.25 11.5Z" fill="white"/>
-              </svg>
+            <div className="hidden md:block h-12 w-px bg-white/10" />
+
+            <div className="flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 transition-colors group">
+              <div className="p-2.5 bg-purple-500/10 rounded-xl group-hover:bg-purple-500/20 transition-colors">
+                <MapPin className="w-6 h-6 text-purple-400" />
+              </div>
+              <div className="flex flex-col flex-1">
+                <span className="font-poppins text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-1">{t('search.fields.where.title')}</span>
+                <input 
+                  type="text"
+                  placeholder={t('search.fields.where.subtitle')}
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="bg-transparent border-none outline-none text-white text-base w-full placeholder:text-gray-600"
+                />
+              </div>
+            </div>
+
+            <div className="hidden md:block h-12 w-px bg-white/10" />
+
+            <div className="flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 transition-colors group">
+              <div className="p-2.5 bg-purple-500/10 rounded-xl group-hover:bg-purple-500/20 transition-colors">
+                <Calendar className="w-6 h-6 text-purple-400" />
+              </div>
+              <div className="flex flex-col flex-1">
+                <span className="font-poppins text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-1">{t('search.fields.when.title')}</span>
+                <CustomDatePicker 
+                  value={date}
+                  onChange={setDate}
+                  placeholder={t('search.fields.when.subtitle')}
+                />
+              </div>
+            </div>
+
+            <Button 
+              onClick={handleSearch}
+              className="w-full md:w-16 h-14 md:h-16 flex items-center justify-center bg-purple-600 hover:bg-purple-500 text-white rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-purple-600/20"
+            >
+              <Search className="w-6 h-6" />
             </Button>
           </div>
         </CardContent>
       </Card>
 
-      <div className="inline-flex items-center gap-8">
+      {/* Features */}
+      <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 mt-2">
         {features.map((feature) => (
           <div
             key={feature.label}
-            className="inline-flex items-center justify-center gap-2"
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-300 transition-colors cursor-default"
           >
-            <img className="w-6 h-6" alt={feature.label} src={feature.icon} />
-            <span className="font-font-body-b5-16-rregular font-[number:var(--font-body-b5-16-rregular-font-weight)] text-[#999999] text-[length:var(--font-body-b5-16-rregular-font-size)] tracking-[var(--font-body-b5-16-rregular-letter-spacing)] leading-[var(--font-body-b5-16-rregular-line-height)] whitespace-nowrap [font-style:var(--font-body-b5-16-rregular-font-style)]">
+            <div className="p-1 bg-white/5 rounded-full">{feature.icon}</div>
+            <span className="text-xs font-medium uppercase tracking-wider">
               {feature.label}
             </span>
           </div>

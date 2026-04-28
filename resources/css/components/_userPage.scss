@@ -366,6 +366,16 @@ $user-gradient: linear-gradient(135deg, #9b30ff, #c14fe6);
   cursor: default;
 }
 
+.user-page-tickets-empty-filter {
+  padding: 48px 24px;
+  text-align: center;
+  background: $user-card-bg;
+  border: 1px dashed $user-border;
+  border-radius: 16px;
+  color: $user-text-muted;
+  font-size: 1rem;
+}
+
 .user-page-ticket-cards {
   list-style: none;
   margin: 0;
@@ -468,6 +478,31 @@ $user-gradient: linear-gradient(135deg, #9b30ff, #c14fe6);
     background: rgba(255, 193, 7, 0.2);
     color: #ffca28;
   }
+
+  &--buy {
+    background: rgba(155, 48, 255, 0.2);
+    color: #9b30ff;
+  }
+
+  &--reserved {
+    background: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+  }
+
+  &--refunded {
+    background: rgba(255, 77, 77, 0.15);
+    color: #ff6b6b;
+  }
+
+  &--partial_refund {
+    background: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+  }
+
+  &--canceled {
+    background: rgba(150, 150, 150, 0.15);
+    color: #999;
+  }
 }
 
 /* Personal info */
@@ -552,7 +587,8 @@ $user-gradient: linear-gradient(135deg, #9b30ff, #c14fe6);
   gap: 20px 24px;
   margin-bottom: 32px;
 
-  .user-page-personal-field--phone {
+  .user-page-personal-field--phone,
+  .user-page-personal-field--full {
     grid-column: 1 / -1;
   }
 
@@ -647,7 +683,112 @@ $user-gradient: linear-gradient(135deg, #9b30ff, #c14fe6);
 .user-page-personal-phone {
   display: flex;
   gap: 12px;
-  align-items: stretch;
+  align-items: flex-start;
+}
+
+.user-page-phone-dropdown {
+  position: relative;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.user-page-phone-code-trigger {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  background: $user-card-bg;
+  border: 1px solid $user-border;
+  border-radius: 10px;
+  color: $user-text;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 0.9375rem;
+
+  &--disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+
+  .flag {
+    font-size: 1.1rem;
+  }
+}
+
+.user-page-phone-list {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 200px;
+  background: $user-sidebar-bg;
+  border: 1px solid $user-border;
+  border-radius: 12px;
+  padding: 8px;
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: authFadeUp 0.2s ease-out;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+}
+
+.user-page-phone-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: #e0e0e0;
+  font-size: 0.875rem;
+
+  &:hover {
+    background: $user-card-bg;
+  }
+
+  &.active {
+    background: rgba(155, 48, 255, 0.1);
+    color: $user-accent;
+
+    .code {
+      color: $user-accent;
+    }
+  }
+
+  .flag {
+    font-size: 1.1rem;
+  }
+
+  .name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .code {
+    color: #888;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+}
+
+.user-page-dropdown-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
 }
 
 .user-page-personal-phone-country {
@@ -726,11 +867,473 @@ $user-gradient: linear-gradient(135deg, #9b30ff, #c14fe6);
   min-height: 40vh;
   padding: 24px;
 }
+/* Modal Styles */
+.user-page-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
-.user-page-placeholder-text {
+.user-page-modal {
+  background: $user-card-bg;
+  border: 1px solid $user-border;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.user-page-modal-header {
+  padding: 24px;
+  border-bottom: 1px solid $user-border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-page-modal-title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $user-text;
+}
+
+.user-page-modal-close {
+  background: transparent;
+  border: none;
   color: $user-text-muted;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $user-text;
+  }
+}
+
+.user-page-modal-body {
+  padding: 24px;
+}
+
+.user-page-details-event {
+  margin-bottom: 24px;
+}
+
+.user-page-details-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: $user-text;
+}
+
+.user-page-details-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: $user-text-muted;
+  font-size: 0.9375rem;
+}
+
+.user-page-details-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-page-details-seats {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid $user-border;
+}
+
+.user-page-details-seats-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $user-text-muted;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.user-page-details-seats-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.user-page-details-seat-pill {
+  padding: 8px 14px;
+  background: rgba(155, 48, 255, 0.15);
+  border: 1px solid rgba(155, 48, 255, 0.3);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #c14fe6;
+  font-weight: 600;
+}
+
+.user-page-details-footer {
+  padding-top: 24px;
+  border-top: 1px solid $user-border;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.user-page-details-price-label {
+  font-size: 0.875rem;
+  color: $user-text-muted;
+  margin-bottom: 4px;
+}
+
+.user-page-details-price-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $user-text;
+}
+
+.user-page-details-status {
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* ── Reserved Ticket Card ── */
+.user-page-ticket-card--reserved {
+  border-color: rgba(255, 193, 7, 0.4) !important;
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.04), transparent) !important;
+}
+
+.reserved-ticket-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 193, 7, 0.2);
+  flex-wrap: wrap;
+}
+
+.reserved-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #f1c40f;
+  background: rgba(241, 196, 15, 0.1);
+  border: 1px solid rgba(241, 196, 15, 0.25);
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s, background 0.3s;
+
+  &.urgent {
+    color: #ff6b6b;
+    background: rgba(255, 77, 77, 0.1);
+    border-color: rgba(255, 77, 77, 0.3);
+    animation: urgentPulse 0.8s ease-in-out infinite alternate;
+  }
+
+  &.expired {
+    color: #888;
+    background: rgba(150, 150, 150, 0.1);
+    border-color: rgba(150, 150, 150, 0.2);
+  }
+}
+
+@keyframes urgentPulse {
+  from { opacity: 1; }
+  to   { opacity: 0.6; }
+}
+
+.continue-payment-btn {
+  padding: 7px 18px;
+  background: linear-gradient(135deg, #f1c40f, #e67e22);
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  letter-spacing: 0.01em;
+
+  &:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.cancel-reservation-btn {
+  padding: 7px 18px;
+  background: transparent;
+  border: 1px solid rgba(150, 150, 150, 0.4);
+  border-radius: 8px;
+  color: #999;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    color: #fff;
+    background: rgba(150, 150, 150, 0.2);
+    border-color: #888;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* ── Refund Button ── */
+.user-page-ticket-refund-btn {
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid rgba(255, 77, 77, 0.5);
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(255, 77, 77, 0.1);
+    border-color: #ff6b6b;
+  }
+}
+
+/* ── Refund Modals ── */
+.refund-confirm-modal,
+.refund-select-modal {
+  max-width: 480px;
+}
+
+.refund-confirm-text {
+  font-size: 1rem;
+  color: $user-text;
+  margin: 0 0 8px;
+}
+
+.refund-confirm-subtext {
+  font-size: 0.875rem;
+  color: $user-text-muted;
+  margin: 0 0 24px;
+}
+
+.refund-confirm-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+
+  button { flex: 1; padding: 12px; border-radius: 10px; font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+}
+
+.refund-btn-cancel {
+  background: $user-card-bg;
+  border: 1px solid $user-border;
+  color: $user-text-muted;
+  &:hover { color: $user-text; border-color: rgba(255,255,255,0.2); }
+}
+
+.refund-btn-continue {
+  background: transparent;
+  border: 1px solid rgba(255, 77, 77, 0.5);
+  color: #ff6b6b;
+  &:hover { background: rgba(255, 77, 77, 0.1); }
+}
+
+.refund-btn-submit {
+  background: linear-gradient(135deg, #ff4d4d, #c0392b);
+  border: none;
+  color: #fff;
+  &:hover { opacity: 0.9; }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.refund-select-all-row {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid $user-border;
+}
+
+.refund-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  color: $user-text;
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: $user-accent;
+    cursor: pointer;
+  }
+}
+
+.refund-ticket-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+}
+
+.refund-ticket-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid $user-border;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover { background: rgba(255,255,255,0.05); }
+
+  input[type="checkbox"] { width: 16px; height: 16px; accent-color: $user-accent; cursor: pointer; flex-shrink: 0; }
+}
+
+.refund-ticket-info {
+  flex: 1;
+  font-size: 0.9rem;
+  color: $user-text;
+}
+
+.refund-ticket-price {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $user-text-muted;
+}
+
+.refund-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid $user-border;
+  font-size: 0.9375rem;
+  color: $user-text-muted;
+
+  strong { font-size: 1.1rem; color: $user-text; }
+}
+
+.refund-error {
+  background: rgba(255, 77, 77, 0.08);
+  border: 1px solid rgba(255, 77, 77, 0.3);
+  color: #ff6b6b;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-top: 12px;
+}
+
+/* ── Transactions List (Payment Tab) ── */
+.user-page-transactions {
+  padding: 8px 0;
+}
+
+.user-page-transactions-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: $user-text;
+  margin: 0 0 24px;
+}
+
+.user-page-transaction-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.user-page-transaction-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: $user-card-bg;
+  border: 1px solid $user-border;
+  border-radius: 14px;
+  transition: border-color 0.2s;
+
+  &:hover { border-color: rgba(155, 48, 255, 0.3); }
+
+  .tx-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tx-intent-id {
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: $user-text;
+    font-weight: 600;
+  }
+
+  .tx-date {
+    font-size: 0.8125rem;
+    color: $user-text-muted;
+  }
+
+  .tx-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .tx-amount {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $user-text;
+  }
+
+  .tx-status {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+
+    &--paid { background: rgba(46, 204, 113, 0.15); color: #2ecc71; }
+    &--refunded { background: rgba(255, 77, 77, 0.15); color: #ff6b6b; }
+    &--partial_refund { background: rgba(241, 196, 15, 0.15); color: #f1c40f; }
+  }
 }
 
 @media (max-width: 768px) {

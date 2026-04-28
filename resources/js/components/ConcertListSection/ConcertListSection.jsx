@@ -1,129 +1,175 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from "../UI/Button";
 import { Card, CardContent } from "../UI/Card";
+import { Link } from 'react-router-dom';
+import { Calendar, MapPin, Timer, ChevronRight } from "lucide-react";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
-function ConcertListSection({ concerts = [] }) {
-    const filterCategories = [
-        { label: "All", active: true },
-        { label: "Pop", active: false },
-        { label: "Rock", active: false },
-        { label: "Jazz & Blues", active: false },
-        { label: "Hip-Hop & Rap", active: false },
-        { label: "Alternative", active: false },
-        { label: "Classical", active: false },
-        { label: "Opera", active: false },
-        { label: "Country", active: false },
-      ];
+function ConcertListSection({ concerts = [], activeGenre = 'all', onGenreChange }) {
+    const { t, i18n } = useTranslation();
+    const container = useRef();
+
+    useGSAP(() => {
+        gsap.from(".event-card", {
+            scale: 0.9,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+        });
+    }, { scope: container, dependencies: [activeGenre] });
+
+    // ... (keep the same helper functions: genres, availableGenres, displayedConcerts, formatDate, formatDateRange, formatPriceRange)
+
+    const genres = [
+        { id: 'all', label: t('concerts.categories.all') },
+        { id: 'pop', label: t('concerts.categories.pop') },
+        { id: 'rock', label: t('concerts.categories.rock') },
+        { id: 'jazz', label: t('concerts.categories.jazz') },
+        { id: 'hiphop', label: t('concerts.categories.hiphop') },
+        { id: 'alternative', label: t('concerts.categories.alternative') },
+        { id: 'classical', label: t('concerts.categories.classical') },
+        { id: 'opera', label: t('concerts.categories.opera') },
+        { id: 'country', label: t('concerts.categories.country') },
+    ];
+
+    const availableGenres = React.useMemo(() => {
+        const set = new Set(concerts.map(c => (c.genre || c.category || '').toLowerCase()));
+        return set;
+    }, [concerts]);
+
+    const displayedConcerts = React.useMemo(() => {
+        const filtered = activeGenre === 'all' 
+            ? concerts 
+            : concerts.filter(c => (c.genre || c.category || '').toLowerCase() === activeGenre.toLowerCase());
+        return filtered.slice(0, 4);
+    }, [concerts, activeGenre]);
+
+    const formatDate = (dateStr) => {
+        if (!dateStr) return null;
+        const d = new Date(dateStr);
+        const locale = i18n.language === 'hy' ? 'hy-AM' : i18n.language === 'ru' ? 'ru-RU' : 'en-US';
+        return d.toLocaleDateString(locale, {
+            month: "short",
+            day: "numeric",
+        });
+    };
+
+    const formatDateRange = (start, end) => {
+        if (!start) return t('common.comingSoon');
+        if (!end || start === end) return formatDate(start);
+        return `${formatDate(start)} - ${formatDate(end)}`;
+    };
+
+    const formatPriceRange = (min, max) => {
+        if (min == null && max == null) return t('common.tba');
+        if (min === max) return `${min}֏`;
+        return `${min} - ${max}֏`;
+    };
 
     return (
-            <section className="flex flex-col items-start gap-8 w-full pb-[100px]">
-              <div className="flex flex-col w-full items-start gap-6">
-                <header className="h-[72px] justify-between px-0 py-2 border-b [border-bottom-style:solid] border-[#1e1e1e] flex items-center w-full">
-                  <h2 className="font-font-heather-h4-28-semi-bold font-[number:var(--font-heather-h4-28-semi-bold-font-weight)] text-white text-[length:var(--font-heather-h4-28-semi-bold-font-size)] tracking-[var(--font-heather-h4-28-semi-bold-letter-spacing)] leading-[var(--font-heather-h4-28-semi-bold-line-height)] [font-style:var(--font-heather-h4-28-semi-bold-font-style)]">
-                    Concert
-                  </h2>
+        <section ref={container} className="flex flex-col gap-8 w-full py-12 md:py-24 border-t border-white/5">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                        {t('concerts.title')}
+                    </h2>
+                    <p className="text-gray-400 text-sm md:text-base max-w-xl">
+                        Discover the most anticipated concerts in town. Get your tickets before they sell out.
+                    </p>
+                </div>
         
-                  <Button
-                    variant="ghost"
-                    className="h-8 px-4 py-[3px] rounded-lg font-font-button-button-b1-16-rregular font-[number:var(--font-button-button-b1-16-rregular-font-weight)] text-white text-[length:var(--font-button-button-b1-16-rregular-font-size)] tracking-[var(--font-button-button-b1-16-rregular-letter-spacing)] leading-[var(--font-button-button-b1-16-rregular-line-height)] [font-style:var(--font-button-button-b1-16-rregular-font-style)]"
-                  >
-                    See all
-                  </Button>
-                </header>
-        
-                <nav className="flex items-center gap-2 w-full flex-wrap">
-                  {filterCategories.map((category, index) => (
+                <Link to="/concerts">
                     <Button
-                      key={index}
-                      className={
-                        category.active
-                          ? "px-4 py-2 rounded-[18px] border border-solid border-[#A62FCA] text-[#D580F2] bg-gradient-to-b from-[#c14fe6]/30 to-transparent hover:bg-gradient-to-b"
-                          : "px-4 py-2 rounded-[18px] border border-solid border-[#303030] text-[#B3B3B3] bg-[#242424] hover:bg-[#242424]"
-                      }
+                      variant="outline"
+                      className="group border-white/10 hover:border-purple-500/50 hover:bg-purple-500/5 text-white rounded-full px-6 py-2 transition-all flex items-center gap-2"
                     >
-                      {category.label}
+                      {t('common.seeAll')}
+                      <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </Button>
-                  ))}
-                </nav>
-              </div>
+                </Link>
+            </div>
+
+            <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar">
+                {genres.map((genre) => {
+                    const isAvailable = genre.id === 'all' || availableGenres.has(genre.id.toLowerCase());
+                    return (
+                        <button
+                            key={genre.id}
+                            disabled={!isAvailable}
+                            onClick={() => onGenreChange?.(genre.id)}
+                            className={`whitespace-nowrap px-5 py-2 rounded-full border text-sm font-medium transition-all duration-300 ${
+                                activeGenre === genre.id
+                                    ? "border-purple-500/50 text-purple-400 bg-purple-500/10 shadow-[0_0_15px_rgba(168,85,247,0.1)]"
+                                    : isAvailable 
+                                        ? "border-white/5 text-gray-400 bg-white/5 hover:bg-white/10 hover:text-white"
+                                        : "border-transparent text-gray-700 bg-transparent cursor-not-allowed opacity-30"
+                            }`}
+                        >
+                            {genre.label}
+                        </button>
+                    );
+                })}
+            </div>
         
-              <div className="flex items-center gap-6 w-full">
-                {concerts.map((concert) => (
-                  <article
-                    key={concert.id}
-                    className="flex flex-col w-72 items-center justify-center"
-                  >
-                    <div
-                      className="w-full h-[336px] rounded-[20px] bg-cover bg-[50%_50%]"
-                      style={{ backgroundImage: `url(${concert.poster_url})` }}
-                    />
-        
-                    <div className="h-[159px] justify-end gap-2 px-2 py-0 mt-[-79px] flex flex-col items-start w-full">
-                      <Card className="flex flex-col items-start justify-end w-full bg-nuetral-800 rounded-2xl overflow-hidden border border-solid border-[#303030] backdrop-blur-[32px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(32px)_brightness(100%)] shadow-bg-blur">
-                        <CardContent className="p-0 w-full">
-                          {concert.hasCountdown && (
-                            <div className="flex items-center justify-between px-4 py-2 w-full bg-error-500 rounded-[16px_16px_0px_0px] overflow-hidden">
-                              <div className="inline-flex items-center gap-0.5">
-                                <img
-                                  className="w-4 h-4"
-                                  alt="Outline time"
-                                  src="/outline---time---stopwatch.svg"
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 w-full">
+                {displayedConcerts.map((concert) => (
+                    <article
+                        key={concert.id}
+                        className="event-card group relative"
+                    >
+                        <Link to={`/concerts/${concert.id}`} className="block">
+                            <div className="relative aspect-[3/4] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
+                                <img 
+                                    src={concert.poster_url || "/images/defaults/concert.png"} 
+                                    alt={concert.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <span className="font-font-body-b2-12-rregular font-[number:var(--font-body-b2-12-rregular-font-weight)] text-white text-[length:var(--font-body-b2-12-rregular-font-size)] tracking-[var(--font-body-b2-12-rregular-letter-spacing)] leading-[var(--font-body-b2-12-rregular-line-height)] [font-style:var(--font-body-b2-12-rregular-font-style)]">
-                                  Time to end
-                                </span>
-                              </div>
-                              <span className="font-font-body-b2-12-rregular font-[number:var(--font-body-b2-12-rregular-font-weight)] text-white text-[length:var(--font-body-b2-12-rregular-font-size)] tracking-[var(--font-body-b2-12-rregular-letter-spacing)] leading-[var(--font-body-b2-12-rregular-line-height)] [font-style:var(--font-body-b2-12-rregular-font-style)]">
-                                {concert.countdown}
-                              </span>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                                
+                                {concert.hasCountdown && (
+                                    <div className="absolute top-2 left-2 right-2 md:top-4 md:left-4 md:right-4 flex items-center justify-between px-2 md:px-3 py-1 bg-red-500/90 backdrop-blur-md rounded-full text-white text-[8px] md:text-[10px] font-bold uppercase tracking-widest z-10 shadow-lg">
+                                        <div className="flex items-center gap-1">
+                                            <Timer size={12} className="md:w-[14px] md:h-[14px] animate-pulse" />
+                                            <span className="hidden xs:inline">Ends In</span>
+                                        </div>
+                                        <span>{concert.countdown}</span>
+                                    </div>
+                                )}
+
+                                <div className="absolute bottom-0 left-0 right-0 p-3 md:p-5 z-10">
+                                    <h3 className="text-sm md:text-xl font-bold text-white mb-1 md:mb-2 line-clamp-1 group-hover:text-purple-400 transition-colors">
+                                        {concert.performer || concert.title || concert.name}
+                                    </h3>
+                                    
+                                    <div className="flex flex-col gap-1 text-[10px] md:text-xs text-gray-300">
+                                        <div className="flex items-center gap-1.5 md:gap-2">
+                                            <Calendar size={12} className="md:w-[14px] md:h-[14px] text-purple-400" />
+                                            <span className="line-clamp-1">{formatDateRange(concert.first_show_date, concert.last_show_date)}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1.5 md:gap-2">
+                                            <MapPin size={12} className="md:w-[14px] md:h-[14px] text-purple-400" />
+                                            <span className="line-clamp-1">{concert.location}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-2 md:mt-4 pt-2 md:pt-4 border-t border-white/10 flex items-center justify-between">
+                                        <span className="text-xs md:text-lg font-bold text-white">
+                                            {formatPriceRange(concert.min_price, concert.max_price)}
+                                        </span>
+                                        <div className="hidden sm:block px-3 py-1 bg-white/10 group-hover:bg-purple-600 rounded-lg text-[10px] font-bold text-white transition-colors">
+                                            GET TICKET
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          )}
-        
-                          <div className="gap-4 p-4 flex flex-col items-start w-full">
-                            <h3 className="w-60 font-font-body-b13-20-bold font-[number:var(--font-body-b13-20-bold-font-weight)] text-white text-[length:var(--font-body-b13-20-bold-font-size)] tracking-[var(--font-body-b13-20-bold-letter-spacing)] leading-[var(--font-body-b13-20-bold-line-height)] [font-style:var(--font-body-b13-20-bold-font-style)]">
-                              {concert.name}
-                            </h3>
-        
-                            <div className="flex items-center justify-between w-full">
-                              <div className="flex items-start gap-1">
-                                <img
-                                  className="w-4 h-4"
-                                  alt="Outline time"
-                                  src="/outline---time---calendar.svg"
-                                />
-                                <span className="font-font-body-b3-14-rregular font-[number:var(--font-body-b3-14-rregular-font-weight)] text-nuetral-200 text-[length:var(--font-body-b3-14-rregular-font-size)] tracking-[var(--font-body-b3-14-rregular-letter-spacing)] leading-[var(--font-body-b3-14-rregular-line-height)] [font-style:var(--font-body-b3-14-rregular-font-style)]">
-                                  {concert.date}
-                                </span>
-                              </div>
-        
-                              <div className="inline-flex items-center justify-end gap-1">
-                                <img
-                                  className="w-4 h-4"
-                                  alt="Outline map location"
-                                  src="/outline---map---location---map-point.svg"
-                                />
-                                <span className="font-font-body-b3-14-rregular font-[number:var(--font-body-b3-14-rregular-font-weight)] text-nuetral-200 text-[length:var(--font-body-b3-14-rregular-font-size)] tracking-[var(--font-body-b3-14-rregular-letter-spacing)] leading-[var(--font-body-b3-14-rregular-line-height)] [font-style:var(--font-body-b3-14-rregular-font-style)]">
-                                  {concert.location}
-                                </span>
-                              </div>
-                            </div>
-        
-                            <div className="inline-flex items-center gap-2">
-                              <span className="font-font-body-b10-18-bold font-[number:var(--font-body-b10-18-bold-font-weight)] text-tint-400 text-[length:var(--font-body-b10-18-bold-font-size)] tracking-[var(--font-body-b10-18-bold-letter-spacing)] leading-[var(--font-body-b10-18-bold-line-height)] [font-style:var(--font-body-b10-18-bold-font-style)]">
-                                from
-                              </span>
-                              <span className="font-font-body-b10-18-bold font-[number:var(--font-body-b10-18-bold-font-weight)] text-tint-400 text-[length:var(--font-body-b10-18-bold-font-size)] tracking-[var(--font-body-b10-18-bold-letter-spacing)] leading-[var(--font-body-b10-18-bold-line-height)] [font-style:var(--font-body-b10-18-bold-font-style)]">
-                                {concert.price}
-                              </span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </article>
+                        </Link>
+                    </article>
                 ))}
-              </div>
-            </section>
+            </div>
+        </section>
     );
 }
 

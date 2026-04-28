@@ -31,7 +31,7 @@ class VenueController extends Controller
         $validated = $request->validate([
             'name'     => 'required|string|max:255',
             'type'     => 'required|in:theatre,stadium',
-            'address'  => 'nullable|string|max:255',
+            'address'  => 'required|string|max:255',
             'capacity' => 'nullable|integer|min:1',
         ]);
 
@@ -49,7 +49,7 @@ class VenueController extends Controller
         $validated = $request->validate([
             'name'     => 'required|string|max:255',
             'type'     => 'required|in:theatre,stadium',
-            'address'  => 'nullable|string|max:255',
+            'address'  => 'required|string|max:255',
             'capacity' => 'nullable|integer|min:1',
         ]);
 
@@ -64,6 +64,23 @@ class VenueController extends Controller
     // DELETE /api/admin/venues/{venue}
     public function destroy(Venue $venue)
     {
+        // ISSUE 5: Check for active (non-finished) events before deleting
+        $activeShowtimeCount = $venue->showtimes()
+            ->where(function ($q) {
+                $q->where('end_time', '>', now())
+                  ->orWhere(function ($q2) {
+                      $q2->whereNull('end_time')
+                         ->where('start_time', '>', now());
+                  });
+            })
+            ->count();
+
+        if ($activeShowtimeCount > 0) {
+            return response()->json([
+                'message' => "Cannot delete this venue — there are {$activeShowtimeCount} active event(s) still assigned to it. Please cancel or reassign them first.",
+            ], 409);
+        }
+
         $venue->delete();
 
         return response()->json([

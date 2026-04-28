@@ -19,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Illuminate\Database\Eloquent\Relations\Relation::morphMap([
+            'movie'   => \App\Models\Movie::class,
+            'concert' => \App\Models\Concert::class,
+            'standup' => \App\Models\Standup::class,
+        ]);
     }
 }

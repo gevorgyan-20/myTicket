@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import useAuthStatus from '../hooks/useAuthStatus';
 
 import HomePage from '../pages/HomePage';
 import AboutPage from '../pages/AboutPage';
@@ -19,29 +20,22 @@ import StandupDetailsPage from '../pages/Standups/StandupDetailsPage';
 
 import AdminRoutes from './AdminRoutes'; 
 import SeatsPage from '../pages/SeatsPage';
-
+import CheckoutPage from '../pages/Checkout/CheckoutPage';
+import SuccessPage from '../pages/Checkout/SuccessPage';
 
 export default function AppRoutes() {
     const location = useLocation();    
     const state = location.state?.backgroundLocation;
 
-    const checkAuth = () => {
-        const token = localStorage.getItem('authToken');
-        return !!token;
-    };
-
-    const [isSignedIn, setIsSignedIn] = useState(checkAuth());
-
-    useEffect(() => {
-        const handleAuthChange = () => {
-            setIsSignedIn(checkAuth());
-        };
-
-        window.addEventListener('authChange', handleAuthChange);
-        return () => window.removeEventListener('authChange', handleAuthChange);
-    }, []);
+    const { isAuthenticated, role, isLoading } = useAuthStatus();
     
-    
+    if (isLoading) {
+        return null;
+    }
+
+    if (isAuthenticated && role === 'admin' && !location.pathname.startsWith('/admin')) {
+        return <Navigate to="/admin" replace />;
+    }
 
     return (
         <>
@@ -61,9 +55,12 @@ export default function AppRoutes() {
                 <Route path="/standups/:id" element={<StandupDetailsPage />} />
                 
                 <Route path="/:eventType/:eventId/seats" element={<SeatsPage />} />
+                
+                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/checkout/success" element={<SuccessPage />} />
 
-                <Route path="/register" element={isSignedIn ? <Navigate to="/" replace /> : <RegisterPage />} />
-                <Route path="/login" element={isSignedIn ? <Navigate to="/" replace /> : <LoginPage />} />
+                <Route path="/register" element={isAuthenticated ? <Navigate to="/" replace /> : <RegisterPage />} />
+                <Route path="/login" element={isAuthenticated ? <Navigate to="/" replace /> : <LoginPage />} />
 
                 <Route path="/admin/*" element={<AdminRoutes />} />
                 

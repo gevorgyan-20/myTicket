@@ -13,68 +13,63 @@ class SeatSeeder extends Seeder
 {
     public function run(): void
     {
-        $events = collect()
-            ->merge(Movie::all())
-            ->merge(Concert::all())
-            ->merge(Standup::all());
+        $showtimes = \App\Models\Showtime::all();
 
-        foreach ($events as $event) {
-            $venueId = $event->venue_id ?: ($event->id % 3 + 1); // Fallback to a venue ID if none assigned
+        foreach ($showtimes as $showtime) {
+            // Delete existing seats for this showtime
+            Seat::where('showtime_id', $showtime->id)->delete();
+
+            $venueId = $showtime->venue_id;
             
-            Seat::where('seatable_id', $event->id)
-                ->where('seatable_type', get_class($event))
-                ->delete();
-
             if ($venueId == 1) {
-                $this->seedDesign1($event);
+                $this->seedDesign1($showtime);
             } elseif ($venueId == 2) {
-                $this->seedDesign2($event);
+                $this->seedDesign2($showtime);
             } else {
-                $this->seedDesign3($event);
+                $this->seedDesign3($showtime);
             }
         }
     }
 
-    private function seedDesign1($event)
+    private function seedDesign1($showtime)
     {
         for ($row = 1; $row <= 4; $row++) {
             for ($num = 1; $num <= 8; $num++) {
-                $this->createSeat($event, $row, $num);
+                $this->createSeat($showtime, $row, $num);
             }
         }
         for ($row = 5; $row <= 12; $row++) {
             for ($num = 1; $num <= 13; $num++) {
-                $this->createSeat($event, $row, $num);
+                $this->createSeat($showtime, $row, $num);
             }
         }
     }
 
-    private function seedDesign2($event)
+    private function seedDesign2($showtime)
     {
         for ($row = 1; $row <= 15; $row++) {
             for ($num = 1; $num <= 20; $num++) {
-                $this->createSeat($event, $row, $num);
+                $this->createSeat($showtime, $row, $num);
             }
         }
     }
 
-    private function seedDesign3($event)
+    private function seedDesign3($showtime)
     {
         for ($row = 1; $row <= 8; $row++) {
             for ($num = 1; $num <= 10; $num++) {
-                $this->createSeat($event, $row, $num);
+                $this->createSeat($showtime, $row, $num);
             }
         }
     }
 
-    private function createSeat($event, $row, $num)
+    private function createSeat($showtime, $row, $num)
     {
         Seat::create([
-            'row'           => $row,
-            'number'        => $num,
-            'seatable_id'   => $event->id,
-            'seatable_type' => get_class($event),
-            'status'        => (rand(1, 10) > 8) ? 'reserved' : 'available',
+            'row'         => $row,
+            'number'      => $num,
+            'showtime_id' => $showtime->id,
+            'status'      => (rand(1, 10) > 8) ? 'reserved' : 'available',
         ]);
     }
 }

@@ -18,7 +18,6 @@ const API = axios.create({
     baseURL: "/api",
     headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
     },
 });
 
@@ -28,6 +27,11 @@ API.interceptors.request.use(
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
+        
+        if (config.data instanceof FormData) {
+            delete config.headers['Content-Type'];
+        }
+
         return config;
     },
     error => {
