@@ -70,7 +70,7 @@ function StandupListSection({ standups = [], activeGenre = 'all', onGenreChange 
                         {t('standups.title')}
                     </h2>
                     <p className="text-gray-400 text-sm md:text-base max-w-xl">
-                        Get ready to laugh! Check out the funniest stand-up shows in the city.
+                        {t('standups.subtitle')}
                     </p>
                 </div>
         
@@ -149,7 +149,7 @@ function StandupListSection({ standups = [], activeGenre = 'all', onGenreChange 
                                             {formatPriceRange(standup.min_price, standup.max_price)}
                                         </span>
                                         <div className="hidden sm:block px-4 py-1.5 bg-white text-black text-[10px] font-bold rounded-full group-hover:bg-purple-600 group-hover:text-white transition-colors">
-                                            BOOK NOW
+                                            {t('common.bookNow')}
                                         </div>
                                     </div>
                                 </div>

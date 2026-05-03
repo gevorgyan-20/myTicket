@@ -14,6 +14,7 @@
     "titlePart1": "What ",
     "titlePart2": "Concert",
     "titlePart3": " would you like to go to?",
+    "title": "Your personalized ticketing platform",
     "subtitle": "More than 100 concerts in different countries are now available to you.",
     "loading": "Loading amazing events..."
   },
@@ -31,15 +32,15 @@
     "features": {
       "refundable": {
         "title": "Refundable Tickets",
-        "description": "You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free."
+        "description": "Life happens. Cancel your booking and get your money back with our hassle-free protection plans."
       },
       "deals": {
         "title": "Smart Deals",
-        "description": "You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free."
+        "description": "Experience more for less. Snag exclusive discounts on the biggest concerts and latest movie premieres."
       },
       "anytime": {
         "title": "Book Anytime!",
-        "description": "You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free."
+        "description": "Secure your spot 24/7. From early-bird specials to last-minute seats, we’ve got you covered."
       }
     }
   },
@@ -56,10 +57,15 @@
     "availableSessions": "Available Sessions",
     "noSessions": "No sessions available at the moment:",
     "pickSeats": "Pick Seats",
-    "selectSeats": "Select Seats"
+    "selectSeats": "Select Seats",
+    "comingSoon": "Coming Soon",
+    "seeAll": "See All",
+    "getTicket": "GET TICKET",
+    "bookNow": "BOOK NOW"
   },
   "concerts": {
     "title": "Concert",
+    "subtitle": "Discover the most anticipated concerts in town. Get your tickets before they sell out.",
     "categories": {
       "all": "All",
       "pop": "Pop",
@@ -103,6 +109,7 @@
   },
   "movies": {
     "title": "Movies",
+    "subtitle": "Catch the latest blockbusters and cinematic masterpieces on the big screen.",
     "categories": {
       "all": "All",
       "scifi": "Sci-Fi",
@@ -124,6 +131,7 @@
   },
   "standups": {
     "title": "Standups",
+    "subtitle": "Get ready to laugh! Check out the funniest stand-up shows in the city.",
     "categories": {
       "all": "All",
       "solo": "Solo",
@@ -396,6 +404,7 @@
       "addressPlaceholder": "e.g. 35 Tsitsernakaberd Highway, Yerevan",
       "editor": {
         "back": "Back to Venues",
+        "stage": "STAGE",
         "saveDraft": "Save draft",
         "deleteSeat": "Delete seat",
         "deselect": "Deselect",
@@ -493,11 +502,18 @@
       "pending": "Reserved",
       "canceled": "Canceled",
       "completed": "Purchased",
+      "paid": "Paid",
       "sortBy": "Sort by",
       "totalPaid": "Total paid",
       "count": "{{count}} tickets",
       "details": "Ticket Details >",
-      "noTicketsFilter": "No {{status}} tickets found."
+      "noTicketsFilter": "No {{status}} tickets found.",
+      "refunded": "Refunded",
+      "refund": "Refund",
+      "cancel": "Cancel",
+      "payNow": "Pay Now",
+      "expired": "Expired",
+      "left": "left"
     },
     "personal": {
       "greeting": "Hey {{name}}!",
@@ -511,6 +527,12 @@
       "saving": "Saving...",
       "anonymous": "there"
     },
+    "payment": {
+      "history": "Payment History",
+      "noTransactions": "No transactions found",
+      "amount": "Amount",
+      "status": "Status"
+    },
     "modal": {
       "orderDetails": "Order Details",
       "selectedSeats": "Selected Seats",
@@ -520,7 +542,23 @@
       "noDate": "No date set",
       "order": "Order",
       "event": "Event",
-      "venue": "Venue"
+      "venue": "Venue",
+      "date": "Date & Time",
+      "tickets": "Tickets",
+      "seat": "Seat",
+      "row": "Row",
+      "closeDetails": "Close Details",
+      "confirmRefund": "Confirm Refund",
+      "refundPrompt": "Are you sure you want to refund tickets for {{event}}?",
+      "refundHint": "You will be able to select which specific tickets to refund on the next screen.",
+      "selectTickets": "Select Tickets",
+      "selectAll": "Select all ({{count}} tickets)",
+      "refundAmount": "Refund amount"
+    }
+  },
+  "profile": {
+    "edit": {
+      "discard": "Discard"
     }
   },
   "checkout": {
@@ -639,5 +677,47 @@
     "submitting": "Submitting...",
     "successTitle": "Thank You!",
     "successMessage": "Your feedback has been successfully submitted."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last Updated: May 2026",
+    "intro": "Welcome to MyTicket. By using our website and services, you agree to comply with and be bound by the following terms and conditions.",
+    "sections": {
+      "booking": {
+        "title": "1. Booking and Payments",
+        "content": "All bookings are subject to availability. Payments are processed securely through our payment partners. Tickets are only confirmed once payment is received in full."
+      },
+      "refunds": {
+        "title": "2. Refunds and Cancellations",
+        "content": "Refund policies vary by event. Generally, tickets are refundable up to 24 hours before the event start time unless otherwise specified by the event organizer."
+      },
+      "conduct": {
+        "title": "3. User Conduct",
+        "content": "Users must provide accurate information and are responsible for maintaining the confidentiality of their account details."
+      }
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated: May 2026",
+    "intro": "At MyTicket, we respect your privacy and are committed to protecting your personal data.",
+    "sections": {
+      "collection": {
+        "title": "1. Data Collection",
+        "content": "We collect information you provide directly to us, such as when you create an account, purchase a ticket, or contact support."
+      },
+      "usage": {
+        "title": "2. Use of Information",
+        "content": "We use your information to process transactions, provide customer support, and send you updates about your bookings."
+      },
+      "protection": {
+        "title": "3. Data Protection",
+        "content": "We implement industry-standard security measures to protect your data from unauthorized access or disclosure."
+      }
+    }
+  },
+  "error": {
+    "title": "Oops! The page you're looking for doesn't exist or may have been moved.",
+    "button": "Back to Homepage"
   }
 }

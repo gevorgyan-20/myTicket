@@ -139,7 +139,7 @@ const useLayoutStore = create((set, get) => ({
 
         const newZone = {
             id:         uid(),
-            label:      `GA ${zoneNumber}`,
+            label:      `G ${zoneNumber}`,
             type:       'standing',
             x:          snap(x, gridSnap),
             y:          snap(y, gridSnap),

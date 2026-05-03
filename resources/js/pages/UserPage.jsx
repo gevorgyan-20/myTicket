@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import SEO from '../components/SEO';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuthStatus from '../hooks/useAuthStatus';
 import { logout, updateProfile } from '../api/AuthService';
@@ -50,13 +51,13 @@ const ReservedCountdown = ({ reservedUntil, onExpire }) => {
     return () => clearInterval(timerRef.current);
   }, [reservedUntil, onExpire]);
 
-  if (secsLeft <= 0) return <span className="reserved-countdown expired">Expired</span>;
+  if (secsLeft <= 0) return <span className="reserved-countdown expired">{t('user.tickets.expired')}</span>;
 
   const m = String(Math.floor(secsLeft / 60)).padStart(2, '0');
   const s = String(secsLeft % 60).padStart(2, '0');
   return (
     <span className={`reserved-countdown ${secsLeft < 60 ? 'urgent' : ''}`}>
-      <Timer className="w-4 h-4 inline-block mr-1" /> {m}:{s} left
+      <Timer className="w-4 h-4 inline-block mr-1" /> {m}:{s} {t('user.tickets.left')}
     </span>
   );
 };
@@ -406,6 +407,7 @@ const UserPage = () => {
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] text-white font-mulish flex flex-col lg:flex-row">
+      <SEO title={t('header.profile')} />
       {/* Mobile Header */}
       <header className="lg:hidden flex items-center justify-between px-6 py-4 border-b border-white/5 bg-[#141414] sticky top-0 z-40">
         <Link to="/" className="text-purple-500 font-poppins font-bold text-xl">MyTicket</Link>
@@ -516,13 +518,13 @@ const UserPage = () => {
                     <div className="flex flex-col lg:flex-row lg:items-center gap-6 relative z-10">
                       <div className="flex-1 space-y-2">
                         <div className="flex items-center gap-3">
-                          <h3 className="font-poppins text-xl font-bold tracking-tight">{group.event_title || 'Event'}</h3>
+                          <h3 className="font-poppins text-xl font-bold tracking-tight">{group.event_title || t('user.modal.event')}</h3>
                           <span className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest ${
                             group.status === 'buy' ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' :
                             group.status === 'reserved' ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' :
                             'bg-white/5 text-gray-500 border border-white/10'
                           }`}>
-                            {group.status}
+                            {t(`user.tickets.${group.status === 'buy' ? 'completed' : group.status === 'reserved' ? 'pending' : group.status}`)}
                           </span>
                         </div>
                         <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500">
@@ -552,7 +554,7 @@ const UserPage = () => {
                             onClick={() => handleOpenRefund(group)}
                             className="px-4 py-2 rounded-xl text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 transition-all"
                           >
-                            Refund
+                            {t('user.tickets.refund')}
                           </button>
                         )}
                         <button
@@ -578,13 +580,13 @@ const UserPage = () => {
                             disabled={cancelingId === group.id}
                             className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl text-xs font-bold text-gray-400 bg-white/5 hover:bg-white/10 transition-all disabled:opacity-50"
                           >
-                            {cancelingId === group.id ? '...' : 'Cancel'}
+                            {cancelingId === group.id ? '...' : t('user.tickets.cancel')}
                           </button>
                           <button
                             onClick={() => handleContinueReservation(group)}
                             className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl text-xs font-bold bg-amber-500 text-black hover:bg-amber-400 transition-all"
                           >
-                            Pay Now
+                            {t('user.tickets.payNow')}
                           </button>
                         </div>
                       </div>
@@ -723,7 +725,7 @@ const UserPage = () => {
                     disabled={personalLoading}
                     className="w-full sm:w-auto bg-purple-600 hover:bg-purple-500 text-white px-10 py-3.5 rounded-2xl font-bold transition-all shadow-lg shadow-purple-900/20 active:scale-95 disabled:opacity-50"
                   >
-                    {personalLoading ? '...' : t('user.personal.save')}
+                    {personalLoading ? t('common.saving') : t('user.personal.save')}
                   </button>
                 </div>
               )}
@@ -733,7 +735,7 @@ const UserPage = () => {
 
         {(activeTab === 'payment') && (
           <div className="space-y-8 animate-fadeIn max-w-6xl mx-auto p-6 lg:p-12">
-            <h1 className="font-poppins text-3xl font-bold">Payment History</h1>
+            <h1 className="font-poppins text-3xl font-bold">{t('user.payment.history')}</h1>
             {transactionsLoading ? (
               <div className="flex justify-center py-24"><div className="w-10 h-10 border-2 border-purple-500/20 border-t-purple-500 rounded-full animate-spin" /></div>
             ) : transactions.length === 0 ? (
@@ -741,7 +743,7 @@ const UserPage = () => {
                 <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center mb-6 border border-white/10">
                   <CreditCard size={40} className="text-gray-600" />
                 </div>
-                <p className="text-gray-400 font-medium">No transactions found</p>
+                <p className="text-gray-400 font-medium">{t('user.payment.noTransactions')}</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -749,12 +751,12 @@ const UserPage = () => {
                   <div key={tx.id} className="bg-[#161616] border border-white/5 p-6 rounded-3xl flex items-center justify-between transition-all hover:border-white/10 group">
                     <div className="space-y-1">
                       <p className="font-mono text-sm text-purple-400 font-bold">#{tx.stripe_payment_intent_id?.slice(-12)}</p>
-                      <p className="text-xs text-gray-500">{new Date(tx.created_at).toLocaleString()}</p>
+                      <p className="text-xs text-gray-500">{new Date(tx.created_at).toLocaleString(i18n.language, { dateStyle: 'medium', timeStyle: 'short' })}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-lg">֏{parseFloat(tx.amount).toLocaleString()}</p>
                       <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-md ${tx.status === 'succeeded' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'}`}>
-                        {tx.status}
+                        {t(`user.tickets.${tx.status === 'succeeded' ? 'completed' : tx.status}`)}
                       </span>
                     </div>
                   </div>
@@ -769,7 +771,7 @@ const UserPage = () => {
             <div className="w-20 h-20 bg-white/5 rounded-[24px] flex items-center justify-center mx-auto mb-6 border border-white/5">
               {activeTab === 'notification' ? <Bell size={32} className="text-gray-600" /> : <Settings size={32} className="text-gray-600" />}
             </div>
-            <h2 className="font-poppins text-2xl font-bold mb-2">Coming Soon</h2>
+            <h2 className="font-poppins text-2xl font-bold mb-2">{t('common.comingSoon')}</h2>
             <p className="text-gray-500 max-w-xs mx-auto font-medium">
               {activeTab === 'notification' ? t('user.tabs.notificationPlaceholder') : t('user.tabs.settingPlaceholder')}
             </p>
@@ -790,26 +792,26 @@ const UserPage = () => {
                 <h3 className="text-xl font-bold text-purple-400 font-poppins">{selectedGroup.event_title}</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-white/5 p-4 rounded-2xl border border-white/5">
-                    <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-1 font-black">Date & Time</p>
+                    <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-1 font-black">{t('user.modal.date')}</p>
                     <p className="text-sm font-bold">{selectedGroup.showtime?.start_time ? new Date(selectedGroup.showtime.start_time).toLocaleString(i18n.language, { dateStyle: 'medium', timeStyle: 'short' }) : '—'}</p>
                   </div>
                   <div className="bg-white/5 p-4 rounded-2xl border border-white/5">
-                    <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-1 font-black">Venue</p>
+                    <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-1 font-black">{t('user.modal.venue')}</p>
                     <p className="text-sm font-bold truncate">{selectedGroup.showtime?.venue?.name || '—'}</p>
                   </div>
                 </div>
               </div>
               
               <div className="space-y-3">
-                <p className="text-xs font-black uppercase tracking-widest text-gray-500 ml-1">Tickets</p>
+                <p className="text-xs font-black uppercase tracking-widest text-gray-500 ml-1">{t('user.modal.tickets')}</p>
                 <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                   {selectedGroup.allTickets.map(tk => (
                     <div key={tk.id} className="bg-white/5 p-4 rounded-2xl border border-white/5 flex items-center justify-between">
                       <div className="text-sm">
-                        <span className="text-gray-500 mr-2">Seat</span>
+                        <span className="text-gray-500 mr-2">{t('user.modal.seat')}</span>
                         <span className="font-bold">{tk.seat?.number || '—'}</span>
                         <span className="text-gray-500 mx-2">/</span>
-                        <span className="text-gray-500 mr-2">Row</span>
+                        <span className="text-gray-500 mr-2">{t('user.modal.row')}</span>
                         <span className="font-bold">{tk.seat?.row || '—'}</span>
                       </div>
                       <span className="font-bold text-emerald-400 text-sm">֏{parseFloat(tk.price).toLocaleString()}</span>
@@ -819,12 +821,12 @@ const UserPage = () => {
               </div>
 
               <div className="pt-6 border-t border-white/5 flex items-center justify-between">
-                <p className="font-poppins text-lg font-bold">Total Amount</p>
+                <p className="font-poppins text-lg font-bold">{t('user.modal.totalAmount')}</p>
                 <p className="text-2xl font-bold text-purple-400 font-poppins">֏{selectedGroup.total_paid.toLocaleString()}</p>
               </div>
             </div>
             <div className="p-8 bg-[#111111] border-t border-white/5 text-center">
-              <button onClick={() => setShowModal(false)} className="w-full bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-2xl transition-all active:scale-95">Close Details</button>
+              <button onClick={() => setShowModal(false)} className="w-full bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-2xl transition-all active:scale-95">{t('user.modal.closeDetails')}</button>
             </div>
           </div>
         </div>
@@ -838,24 +840,24 @@ const UserPage = () => {
               <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Banknote size={32} className="text-red-500" />
               </div>
-              <h2 className="font-poppins text-2xl font-bold">Confirm Refund</h2>
+              <h2 className="font-poppins text-2xl font-bold">{t('user.modal.confirmRefund')}</h2>
               <p className="text-gray-400">
-                Are you sure you want to refund tickets for <strong className="text-white">{refundGroup.event_title || 'this event'}</strong>?
+                {t('user.modal.refundPrompt', { event: refundGroup.event_title || t('user.modal.event') })}
               </p>
-              <p className="text-xs text-gray-500">You will be able to select which specific tickets to refund on the next screen.</p>
+              <p className="text-xs text-gray-500">{t('user.modal.refundHint')}</p>
             </div>
             <div className="p-8 flex flex-col sm:flex-row gap-3 bg-[#111111] border-t border-white/5">
               <button 
                 onClick={() => setShowRefundConfirm(false)}
                 className="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-2xl transition-all active:scale-95"
               >
-                Cancel
+                {t('common.cancel')}
               </button>
               <button 
                 onClick={handleRefundConfirmed}
                 className="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-red-900/20 active:scale-95"
               >
-                Continue
+                {t('common.continue')}
               </button>
             </div>
           </div>
@@ -872,7 +874,7 @@ const UserPage = () => {
           <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn" onClick={() => setShowRefundSelect(false)}>
             <div className="bg-[#161616] border border-white/10 w-full max-w-lg rounded-[40px] overflow-hidden shadow-2xl animate-scaleIn" onClick={e => e.stopPropagation()}>
               <div className="p-8 border-b border-white/5 flex items-center justify-between">
-                <h2 className="font-poppins text-2xl font-bold">Select Tickets</h2>
+                <h2 className="font-poppins text-2xl font-bold">{t('user.modal.selectTickets')}</h2>
                 <button onClick={() => setShowRefundSelect(false)} className="p-2 hover:bg-white/5 rounded-full transition-colors"><X size={24} /></button>
               </div>
               
@@ -887,7 +889,7 @@ const UserPage = () => {
                     checked={refundSelected.length === eligible.length}
                     onChange={() => handleSelectAllRefund(eligible)}
                   />
-                  <span className="font-bold text-sm">Select all ({eligible.length} tickets)</span>
+                  <span className="font-bold text-sm">{t('user.modal.selectAll', { count: eligible.length })}</span>
                 </label>
 
                 <div className="space-y-2 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
@@ -904,7 +906,7 @@ const UserPage = () => {
                           onChange={() => toggleRefundTicket(tk.id)}
                         />
                         <span className="text-sm font-bold">
-                          {tk.seat?.is_spatial ? tk.seat.label : `Row ${tk.seat?.row}, Seat ${tk.seat?.number}`}
+                          {tk.seat?.is_spatial ? tk.seat.label : `${t('user.modal.row')} ${tk.seat?.row}, ${t('user.modal.seat')} ${tk.seat?.number}`}
                         </span>
                       </div>
                       <span className="font-bold text-gray-400 text-sm">֏{parseFloat(tk.price).toLocaleString()}</span>
@@ -913,7 +915,7 @@ const UserPage = () => {
                 </div>
 
                 <div className="pt-6 border-t border-white/5 flex items-center justify-between">
-                  <p className="font-poppins font-bold text-gray-500">Refund amount</p>
+                  <p className="font-poppins font-bold text-gray-500">{t('user.modal.refundAmount')}</p>
                   <p className="text-xl font-bold text-white">֏{selectedRefundAmount.toLocaleString()}</p>
                 </div>
 
@@ -929,14 +931,14 @@ const UserPage = () => {
                   onClick={() => setShowRefundSelect(false)}
                   className="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-2xl transition-all"
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </button>
                 <button
                   onClick={handleSubmitRefund}
                   disabled={refundLoading || !refundSelected.length}
                   className="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-2xl transition-all disabled:opacity-50 active:scale-95"
                 >
-                  {refundLoading ? '...' : `Refund (${refundSelected.length})`}
+                  {refundLoading ? t('common.saving') : `${t('user.tickets.refund')} (${refundSelected.length})`}
                 </button>
               </div>
             </div>

@@ -51,8 +51,8 @@ const LanguageSwitcher = () => {
             <button
               key={lang.code}
               onClick={() => changeLanguage(lang.code)}
-              className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-left transition-colors hover:bg-white/5 ${
-                currentLanguage.code === lang.code ? 'text-app-primary bg-white/5' : 'text-white/80'
+              className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-left text-white/80 transition-colors hover:bg-white/5 ${
+                currentLanguage.code === lang.code ? 'bg-white/5' : ''
               }`}
             >
               <span className={`fi fi-${lang.flag} rounded-sm`}></span>

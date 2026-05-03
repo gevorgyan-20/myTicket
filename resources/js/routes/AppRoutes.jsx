@@ -5,6 +5,9 @@ import useAuthStatus from '../hooks/useAuthStatus';
 import HomePage from '../pages/HomePage';
 import AboutPage from '../pages/AboutPage';
 import UserPage from '../pages/UserPage';
+import TermsPage from '../pages/TermsPage';
+import PrivacyPage from '../pages/PrivacyPage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 import LoginPage from '../pages/Auth/LoginPage';
 import RegisterPage from '../pages/Auth/RegisterPage';
@@ -44,6 +47,8 @@ export default function AppRoutes() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/user" element={<UserPage />} />
+                <Route path="/terms" element={<TermsPage />} />
+                <Route path="/privacy" element={<PrivacyPage />} />
 
                 <Route path="/movies" element={<MoviesPage />} />
                 <Route path="/movies/:id" element={<MovieDetailsPage />} />
@@ -64,7 +69,7 @@ export default function AppRoutes() {
 
                 <Route path="/admin/*" element={<AdminRoutes />} />
                 
-                <Route path="*" element={<h1>404 | Page Not Found</h1>} />
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
 
         </>

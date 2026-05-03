@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SEO from "../components/SEO";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -127,9 +128,26 @@ export default function HomePage() {
       );
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "myTicket",
+    "url": window.location.origin,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": `${window.location.origin}/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <div className="relative w-full bg-[#0c0c0c] overflow-hidden min-h-screen">
-      {/* Dynamic Background Blobs */}
+      <SEO 
+        title={t('hero.title')} 
+        template={false}
+        description={t('hero.subtitle') || "Book tickets for the best concerts, movies, and stand-up shows."}
+        structuredData={structuredData}
+      />
       <div className="absolute top-0 left-0 w-full h-[120vh] pointer-events-none opacity-50">
         <img
           className="w-full h-full object-cover mix-blend-screen animate-pulse"
@@ -138,12 +156,10 @@ export default function HomePage() {
         />
       </div>
       
-      {/* Modern Gradient Blobs */}
       <div className="absolute top-[-100px] left-1/4 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[150px] animate-blob pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[180px] animate-blob animation-delay-2000 pointer-events-none" />
       <div className="absolute top-1/2 left-[-100px] w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[120px] animate-blob animation-delay-4000 pointer-events-none" />
 
-      {/* Main Content Sections */}
       <div className="relative z-10 flex flex-col w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="section-reveal">

@@ -110,7 +110,7 @@ function StandingZoneNode({ zone, section, status, isSelected, onClick, isDisabl
                 cornerRadius={4}
             />
             <Text
-                text={isDisabled ? 'CLOSED' : (isLocked ? 'LOCKED' : (isSelected ? 'SELECTED' : status === 'reserved' ? 'FULL' : (zone.label || 'GA')))}
+                text={isDisabled ? 'CLOSED' : (isLocked ? 'LOCKED' : (isSelected ? 'SELECTED' : status === 'reserved' ? 'FULL' : (zone.label || 'G')))}
                 width={zone.width || 120}
                 height={zone.height || 80}
                 align="center"
@@ -374,7 +374,7 @@ export default function VenueSeatPicker({
                                 opacity={0.7}
                             />
                             <Text
-                                text="S T A G E"
+                                text={t('admin.venues.editor.stage') || 'S T A G E'}
                                 width={160} height={32}
                                 align="center" verticalAlign="middle"
                                 fill="#fff" fontSize={12} fontStyle="bold" fontFamily="Inter, sans-serif"

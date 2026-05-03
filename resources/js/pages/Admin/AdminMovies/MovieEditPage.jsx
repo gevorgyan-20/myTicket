@@ -5,6 +5,7 @@ import { Upload, X, ArrowLeft, Trash2 } from 'lucide-react';
 import { getMovieById, updateMovie, deleteMovie } from '../../../api/MoviesService';
 import { getVenues } from '../../../api/VenueService';
 import ShowtimeManager from '../../../components/Admin/ShowtimeManager';
+import CustomDatePicker from '../../../components/UI/CustomDatePicker';
 
 export default function MovieEditPage() {
     const { t } = useTranslation();
@@ -309,7 +310,13 @@ export default function MovieEditPage() {
                         </div>
                         <div>
                             <label className={labelClass}>{t('admin.fields.releaseDate')}</label>
-                            <input type="date" name="release_date" value={form.release_date} onChange={handleChange} className={inputClass} />
+                            <div className={inputClass}>
+                                <CustomDatePicker 
+                                    value={form.release_date} 
+                                    onChange={(val) => setForm(prev => ({ ...prev, release_date: val }))} 
+                                    placeholder={t('admin.fields.releaseDate')}
+                                />
+                            </div>
                         </div>
                     </div>
 

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Upload, X } from 'lucide-react';
 import { createMovie } from '../../../api/MoviesService';
 import { getVenues } from '../../../api/VenueService';
+import CustomDatePicker from '../../../components/UI/CustomDatePicker';
 
 export default function MovieCreatePage() {
     const { t } = useTranslation();
@@ -211,7 +212,13 @@ export default function MovieCreatePage() {
                         </div>
                         <div>
                             <label className={labelClass}>{t('admin.fields.releaseDate')}</label>
-                            <input type="date" name="release_date" value={form.release_date} onChange={handleChange} className={inputClass} />
+                            <div className={inputClass}>
+                                <CustomDatePicker 
+                                    value={form.release_date} 
+                                    onChange={(val) => setForm(prev => ({ ...prev, release_date: val }))} 
+                                    placeholder={t('admin.fields.releaseDate')}
+                                />
+                            </div>
                         </div>
                     </div>
 

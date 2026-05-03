@@ -55,10 +55,17 @@ class TicketMail extends Mailable implements ShouldQueue
      */
     public function attachments(): array
     {
+        \Carbon\Carbon::setLocale('hy');
+
         $pdf = Pdf::loadView('emails.ticket_pdf', [
             'tickets' => $this->tickets,
             'user' => $this->user
-        ]);
+        ])->setPaper('a4')
+          ->setOptions([
+              'defaultFont' => 'DejaVu Sans',
+              'isRemoteEnabled' => true,
+              'isHtml5ParserEnabled' => true,
+          ]);
 
         return [
             Attachment::fromData(fn () => $pdf->output(), 'tickets.pdf')

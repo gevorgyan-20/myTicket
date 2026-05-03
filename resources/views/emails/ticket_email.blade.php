@@ -3,7 +3,7 @@
 <head>
     <style>
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #1e293b;
             background-color: #f8fafc;
@@ -65,21 +65,21 @@
 <body>
     <div class="wrapper">
         <div class="header">
-            <h1>Your Tickets are Ready!</h1>
+            <h1>Ձեր տոմսերը պատրաստ են!</h1>
         </div>
         <div class="content">
-            <p>Hello <span class="highlight">{{ $user->name }}</span>,</p>
-            <p>Great news! Your payment was successful and your tickets for <span class="highlight">myTicket</span> are now ready for you.</p>
-            <p>We've attached your official tickets as a PDF to this email. Please keep them safe and bring them with you to the event.</p>
-            <p>You can also access your order history and view your tickets at any time by logging into your dashboard.</p>
+            <p>Ողջույն <span class="highlight">{{ $user->name }}</span>,</p>
+            <p>Հիանալի նորություն: Ձեր վճարումը հաջողությամբ կատարվել է, և ձեր <span class="highlight">myTicket</span> տոմսերն արդեն պատրաստ են:</p>
+            <p>Մենք կցել ենք ձեր պաշտոնական տոմսերը PDF ձևաչափով այս էլ. նամակին: Խնդրում ենք պահպանել դրանք և ներկայացնել միջոցառմանը:</p>
+            <p>Դուք նաև կարող եք տեսնել ձեր պատվերների պատմությունը և դիտել տոմսերը ցանկացած ժամանակ՝ մուտք գործելով ձեր անձնական էջ:</p>
             
-            <a href="{{ url('/profile') }}" class="button">View My Profile</a>
+            <a href="{{ url('/profile') }}" class="button">Տեսնել իմ պրոֆիլը</a>
             
-            <p style="margin-top: 30px; font-size: 14px;">See you at the event!<br><strong>The myTicket Team</strong></p>
+            <p style="margin-top: 30px; font-size: 14px;">Կհանդիպենք միջոցառմանը!<br><strong>myTicket թիմ</strong></p>
         </div>
         <div class="footer">
-            &copy; {{ date('Y') }} myTicket. All rights reserved.<br>
-            If you have any questions, please contact our support team.
+            &copy; {{ date('Y') }} myTicket. Բոլոր իրավունքները պաշտպանված են:<br>
+            Եթե ունեք հարցեր, խնդրում ենք կապվել մեր աջակցման թիմի հետ:
         </div>
     </div>
 </body>

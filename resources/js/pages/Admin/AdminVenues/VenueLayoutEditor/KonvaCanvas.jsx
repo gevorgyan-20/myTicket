@@ -1,5 +1,6 @@
 import React, { useRef, useCallback, useState } from 'react';
 import { Stage, Layer, Rect, Text, Line, Group, Label, Tag } from 'react-konva';
+import { useTranslation } from 'react-i18next';
 import useLayoutStore from './useLayoutStore';
 import SeatNode from './SeatNode';
 import StandingZoneNode from './StandingZoneNode';
@@ -24,6 +25,7 @@ function GridLines({ width, height }) {
 // ── Stage label ───────────────────────────────────────────────────────────────
 
 function StageLabel({ canvasWidth }) {
+    const { t } = useTranslation();
     const stageBarH = 36;
     return (
         <Group y={8} x={canvasWidth / 2 - 80}>
@@ -38,7 +40,7 @@ function StageLabel({ canvasWidth }) {
                 shadowOpacity={0.4}
             />
             <Text
-                text="S T A G E"
+                text={t('admin.venues.editor.stage') || 'S T A G E'}
                 width={160}
                 height={stageBarH}
                 align="center"

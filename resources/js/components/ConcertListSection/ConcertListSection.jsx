@@ -77,7 +77,7 @@ function ConcertListSection({ concerts = [], activeGenre = 'all', onGenreChange 
                         {t('concerts.title')}
                     </h2>
                     <p className="text-gray-400 text-sm md:text-base max-w-xl">
-                        Discover the most anticipated concerts in town. Get your tickets before they sell out.
+                        {t('concerts.subtitle')}
                     </p>
                 </div>
         
@@ -133,7 +133,7 @@ function ConcertListSection({ concerts = [], activeGenre = 'all', onGenreChange 
                                     <div className="absolute top-2 left-2 right-2 md:top-4 md:left-4 md:right-4 flex items-center justify-between px-2 md:px-3 py-1 bg-red-500/90 backdrop-blur-md rounded-full text-white text-[8px] md:text-[10px] font-bold uppercase tracking-widest z-10 shadow-lg">
                                         <div className="flex items-center gap-1">
                                             <Timer size={12} className="md:w-[14px] md:h-[14px] animate-pulse" />
-                                            <span className="hidden xs:inline">Ends In</span>
+                                            <span className="hidden xs:inline">{t('concerts.timeToEnd')}</span>
                                         </div>
                                         <span>{concert.countdown}</span>
                                     </div>
@@ -160,7 +160,7 @@ function ConcertListSection({ concerts = [], activeGenre = 'all', onGenreChange 
                                             {formatPriceRange(concert.min_price, concert.max_price)}
                                         </span>
                                         <div className="hidden sm:block px-3 py-1 bg-white/10 group-hover:bg-purple-600 rounded-lg text-[10px] font-bold text-white transition-colors">
-                                            GET TICKET
+                                            {t('common.getTicket')}
                                         </div>
                                     </div>
                                 </div>

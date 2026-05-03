@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 
-function Header() {
+function Header({ isTransparent }) {
     const { t } = useTranslation();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,13 +38,19 @@ function Header() {
     }
 
     return (
-        <header className="fixed top-0 left-0 w-full z-50 bg-[#0c0c0cb3] backdrop-blur-md border-b border-white/5">
+        <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+            isTransparent 
+            ? "bg-transparent border-transparent" 
+            : "bg-[#0c0c0cb3] backdrop-blur-md border-b border-white/5"
+        }`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 md:h-20 items-center justify-between relative z-50">
-            <Link to="/" className="flex-shrink-0" onClick={() => setIsMenuOpen(false)}>
-                <img src="/favicon.ico" alt="MyTicket Logo" className="w-8 h-8 md:w-10 md:h-10" />
-            </Link>
+            {isTransparent ? 
+             <div></div> : (
+              <Link to="/" className="flex-shrink-0" onClick={() => setIsMenuOpen(false)}>
+                <img src="/favicon.ico" alt="MyTicket Logo" className="size-8 md:size-[60px]" />
+              </Link>
+            )}
       
-            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
               {navigationItems.map((item, index) => (
                 <Link
@@ -59,7 +65,6 @@ function Header() {
               ))}
             </nav>
       
-            {/* Desktop Actions */}
             <div className="hidden lg:flex items-center gap-4">
               <LanguageSwitcher />
       

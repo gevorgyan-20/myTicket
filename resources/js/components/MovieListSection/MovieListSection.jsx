@@ -76,7 +76,7 @@ function MovieListSection({ movies = [], activeGenre = 'all', onGenreChange }) {
                         {t('movies.title')}
                     </h2>
                     <p className="text-gray-400 text-sm md:text-base max-w-xl">
-                        Catch the latest blockbusters and cinematic masterpieces on the big screen.
+                        {t('movies.subtitle')}
                     </p>
                 </div>
         

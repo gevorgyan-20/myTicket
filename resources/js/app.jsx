@@ -13,6 +13,8 @@ import AppRoutes from './routes/AppRoutes';
 import Layout from './components/Layout'; 
 import ScrollToTop from './components/ScrollToTop';
 
+import { HelmetProvider } from 'react-helmet-async';
+
 const container = document.getElementById('root'); 
 
 if (container) {
@@ -20,12 +22,14 @@ if (container) {
 
     root.render(
         <React.StrictMode>
-            <BrowserRouter>
-                <ScrollToTop />
-                <Layout>
-                    <AppRoutes />
-                </Layout>
-            </BrowserRouter>
+            <HelmetProvider>
+                <BrowserRouter>
+                    <ScrollToTop />
+                    <Layout>
+                        <AppRoutes />
+                    </Layout>
+                </BrowserRouter>
+            </HelmetProvider>
         </React.StrictMode>
     );
 }

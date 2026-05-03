@@ -37,6 +37,7 @@ export default function Footer() {
             { label: t('footer.home'), to: "/" },
             { label: t('footer.contact'), to: "/contact" },
             { label: t('footer.about'), to: "/about" },
+            { label: t('terms.title'), to: "/terms" },
             { label: t('footer.privacy'), to: "/privacy" }
           ].map((link) => (
             <Link 

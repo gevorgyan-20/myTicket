@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Your Ticket</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Ձեր տոմսը</title>
     <style>
         @page {
             margin: 0;
         }
+        * {
+            font-family: "DejaVu Sans", sans-serif !important;
+        }
+        body, table, td, span, div, h1, h2, h3, p {
+            font-family: "DejaVu Sans", sans-serif !important;
+        }
         body {
-            font-family: 'Helvetica', 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #0f172a; /* Deep dark background */
@@ -34,9 +39,9 @@
         }
         .ticket-header h1 {
             margin: 0;
-            font-size: 32px;
+            font-size: 26px;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 1px;
             font-weight: 900;
             color: #ffffff;
         }
@@ -121,7 +126,7 @@
     <div class="ticket-wrapper">
         <div class="ticket">
             <div class="ticket-header">
-                <h1>ADMIT ONE</h1>
+                <h1>ՄՈՒՏՔԻ ՏՈՄՍ</h1>
             </div>
             
             <div class="ticket-body">
@@ -130,36 +135,36 @@
                 <table class="info-table">
                     <tr>
                         <td width="60%">
-                            <span class="label">Date & Time</span>
+                            <span class="label">Ամսաթիվ և Ժամ</span>
                             <div class="value">
                                 @if($ticket->showtime)
-                                    {{ \Carbon\Carbon::parse($ticket->showtime->start_time)->format('l, M d, Y') }}<br>
+                                    {{ \Carbon\Carbon::parse($ticket->showtime->start_time)->translatedFormat('l, F d, Y') }}<br>
                                     <span style="color: #818cf8; font-size: 22px;">{{ \Carbon\Carbon::parse($ticket->showtime->start_time)->format('H:i') }}</span>
                                 @else
-                                    N/A
+                                    -
                                 @endif
                             </div>
                         </td>
                         <td width="40%">
-                            <span class="label">Venue</span>
-                            <div class="value">{{ $ticket->showtime->venue->name ?? 'N/A' }}</div>
+                            <span class="label">Վայր</span>
+                            <div class="value">{{ $ticket->showtime->venue->name ?? '-' }}</div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="label">Seat Information</span>
-                            <div class="value" style="color: #fbbf24; font-size: 24px;">
+                            <span class="label">Տեղեկություն տեղի մասին</span>
+                            <div class="value" style="color: #fbbf24; font-size: 22px;">
                                 @if($ticket->seat)
-                                    Row {{ $ticket->seat->row }}, Seat {{ $ticket->seat->number }}
+                                    Շարք {{ $ticket->seat->row }}, Տեղ {{ $ticket->seat->number }}
                                 @elseif($ticket->venueSeat)
-                                    {{ $ticket->venueSeat->label ?: 'General Admission' }}
+                                    {{ $ticket->venueSeat->label ?: 'Ընդհանուր մուտք' }}
                                 @else
-                                    N/A
+                                    -
                                 @endif
                             </div>
                         </td>
                         <td>
-                            <span class="label">Price</span>
+                            <span class="label">Գին</span>
                             <div class="value">{{ number_format($ticket->price, 0) }} AMD</div>
                         </td>
                     </tr>
@@ -170,11 +175,11 @@
                 <table class="info-table">
                     <tr>
                         <td width="50%">
-                            <span class="label">Attendee</span>
+                            <span class="label">Մասնակից</span>
                             <div class="value">{{ $ticket->buyer_name ?: $ticket->user->name }}</div>
                         </td>
                         <td width="50%" align="right">
-                            <span class="label">Ticket ID</span>
+                            <span class="label">Տոմսի ID</span>
                             <div class="value" style="font-family: monospace;">#{{ str_pad($ticket->id, 8, '0', STR_PAD_LEFT) }}</div>
                         </td>
                     </tr>
@@ -182,13 +187,13 @@
 
                 <div class="barcode-area">
                     <div class="barcode-text">*{{ $ticket->id }}*</div>
-                    <div class="scan-instruction">SCAN THIS CODE AT THE ENTRANCE</div>
+                    <div class="scan-instruction">ՍԿԱՆԱՎՈՐԵՔ ԱՅՍ ԿՈԴԸ ՄՈՒՏՔԻ ՄՈՏ</div>
                 </div>
             </div>
 
             <div class="ticket-footer">
                 <div style="font-size: 12px; color: #94a3b8;">
-                    This ticket is unique and valid for one-time entry. No refunds after event start.
+                    Այս տոմսը եզակի է և վավեր է մեկանգամյա մուտքի համար: Միջոցառման մեկնարկից հետո վերադարձ չի իրականացվում:
                 </div>
             </div>
         </div>

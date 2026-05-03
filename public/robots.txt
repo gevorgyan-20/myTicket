@@ -1,2 +1,11 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow admin and auth routes from being indexed
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+Disallow: /user
+
+# Sitemap location (update URL when sitemap is generated)
+# Sitemap: https://yourdomain.com/sitemap.xml

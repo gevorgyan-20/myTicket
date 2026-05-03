@@ -7,6 +7,7 @@ import useAuthStatus from "../../hooks/useAuthStatus";
 import FrequentlyAskedQuestionsSection from "../../components/FrequentlyAskedQuestionsSection/FrequentlyAskedQuestionsSection";
 import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
 import { getVenues } from "../../api/VenueService";
+import SEO from "../../components/SEO";
 
 export default function StandupsPage() {
   const { t, i18n } = useTranslation();
@@ -174,6 +175,7 @@ export default function StandupsPage() {
 
   return (
     <div className="relative w-full bg-[#0D0D0D] mt-[80px] md:mt-[158px] min-h-screen">
+      <SEO title={t('header.standups')} />
       <section className="relative w-full px-4 md:px-[108px] pb-6 border-b border-[#232323] bg-[#0D0D0D]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-stretch md:items-end gap-3 md:gap-4">
           <div className="grid grid-cols-2 md:flex md:items-end gap-3 flex-1">
