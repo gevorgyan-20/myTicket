@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import useAuthStatus from '../hooks/useAuthStatus';
 
 import HomePage from '../pages/HomePage';
 import AboutPage from '../pages/AboutPage';
 import UserPage from '../pages/UserPage';
-import TermsPage from '../pages/TermsPage';
 import PrivacyPage from '../pages/PrivacyPage';
 import NotFoundPage from '../pages/NotFoundPage';
 
@@ -26,6 +25,8 @@ import SeatsPage from '../pages/SeatsPage';
 import CheckoutPage from '../pages/Checkout/CheckoutPage';
 import SuccessPage from '../pages/Checkout/SuccessPage';
 
+const TermsPage = lazy(() => import('../pages/TermsPage'));
+
 export default function AppRoutes() {
     const location = useLocation();    
     const state = location.state?.backgroundLocation;
@@ -41,7 +42,11 @@ export default function AppRoutes() {
     }
 
     return (
-        <>
+        <Suspense fallback={
+            <div className="min-h-screen bg-[#0D0D0D] flex flex-col items-center justify-center space-y-4">
+                <div className="w-12 h-12 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin" />
+            </div>
+        }>
             <Routes location={state || location}>
                 
                 <Route path="/" element={<HomePage />} />
@@ -71,7 +76,6 @@ export default function AppRoutes() {
                 
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
-
-        </>
+        </Suspense>
     )
 };

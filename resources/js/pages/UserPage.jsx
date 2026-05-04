@@ -35,6 +35,7 @@ const AUTH_EVENT = 'authChange';
 
 // ── Live countdown for reserved tickets ────────────────────────────────────
 const ReservedCountdown = ({ reservedUntil, onExpire }) => {
+  const { t } = useTranslation();
   const calcSecsLeft = () => Math.max(0, Math.floor((new Date(reservedUntil) - Date.now()) / 1000));
   const [secsLeft, setSecsLeft] = useState(calcSecsLeft);
   const timerRef = useRef(null);

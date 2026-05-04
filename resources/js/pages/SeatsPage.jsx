@@ -244,11 +244,9 @@ const SeatsPage = () => {
             })
             .listen('.SeatPurchased', (e) => {
                 console.log('Received SeatPurchased:', e);
-                // Mark seat as permanently reserved in local state
                 setSeats(prev => prev.map(s => 
                     String(s.id) === String(e.seatId) ? { ...s, status: 'reserved' } : s
                 ));
-                // Remove from lockedByOthers as it's now officially reserved
                 setLockedByOthers(prev => prev.filter(id => id !== String(e.seatId)));
             });
 

@@ -26,9 +26,7 @@ class PaymentController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $intent = PaymentIntent::create([
-            // Stripe requires amount in smallest currency unit.
-            // AMD: 1 AMD = 100 lumas, so multiply by 100.
-            'amount'   => (int) round($request->amount * 100),
+            'amount'   => (int) round($request->amount * 100), // Stripe requires amount in smallest currency unit.(AMD: 1 AMD = 100 lumas, so multiply by 100.)
             'currency' => strtolower($request->currency),
             'metadata' => array_merge(
                 ['user_id' => Auth::id()],
