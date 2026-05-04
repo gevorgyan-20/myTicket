@@ -4,7 +4,7 @@ import SEO from '../components/SEO';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuthStatus from '../hooks/useAuthStatus';
 import { logout, updateProfile } from '../api/AuthService';
-import { getUserTickets } from '../api/ticketService';
+import { getUserTickets } from '../api/TicketService';
 import { getUserTransactions, requestRefund } from '../api/paymentService';
 import { ChevronDown, ChevronUp, Phone } from 'lucide-react';
 import {

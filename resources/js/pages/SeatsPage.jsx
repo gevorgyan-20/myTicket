@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getSeatsForEvent, getUserBoughtTicketsCount } from '../api/SeatService';
-import { createTicket } from '../api/ticketService';
+import { createTicket } from '../api/TicketService';
 import { getConcertById } from '../api/ConcertsService';
 import { getMovieById } from '../api/MoviesService';
 import { getStandupById } from '../api/StandupsService';

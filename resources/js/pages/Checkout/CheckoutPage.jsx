@@ -8,7 +8,7 @@ import {
     useStripe,
     useElements,
 } from '@stripe/react-stripe-js';
-import { createTicket } from '../../api/ticketService';
+import { createTicket } from '../../api/TicketService';
 import { saveTransaction } from '../../api/paymentService';
 import useAuthStatus from '../../hooks/useAuthStatus';
 import { Ticket, CreditCard, Check, User, Phone, Mail, ShieldCheck, Banknote, X, Timer, MapPin, Calendar } from 'lucide-react';
